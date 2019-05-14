@@ -1,0 +1,15 @@
+{
+    // 使用 IntelliSense 了解相关属性。 
+    // 悬停以查看现有属性的描述。
+    // 欲了解更多信息，请访问: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "chrome",
+            "request": "launch",
+            "name": "Launch Chrome against localhost",
+            "url": "file:///D:/%E5%A4%A7%E5%96%B5%E5%9F%B9%E8%AE%AD/%E5%9F%B9%E8%AE%AD%E4%BD%9C%E4%B8%9A/miao/test.html",
+            "webRoot": "${workspaceFolder}"
+        }
+    ]
+}
