@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>vscode menu</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        ul {
+            list-style-type: none;
+            border: solid 1px;
+        }
+
+        ul li {
+            position: relative;
+            padding: 3px 10px;
+        }
+
+        li:hover {
+            background-color: rgb(9, 71, 113);
+        }
+
+        li:hover > ul {
+            display: block;
+        }
+
+        ul ul {
+            width: 260px;
+            display: none;
+            position: absolute;
+            left:100%;
+            top:0;
+        }
+        .menu > li > ul{
+            top:100%;
+            left:0;
+        }
+        .menu {
+            border-style: none;
+        }
+
+        ul.menu>li {
+            float: left;
+            margin: 5px;
+        }
+        .iconfont:after{
+            /* float: right; */
+            content:">";
+            position: absolute;
+            right: 5%;
+        }
+        .shortcutKey{
+            /* float: right; */
+            position: absolute;
+            right: 5%;
+        }
+        #recentFileList{
+            width:350px;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <ul class="menu">
+            <li>
+                文件(F)
+                <ul>
+                    <li>新建文件<span class="shortcutKey">Ctrl+N</span></li>
+                    <li>新键窗口<span class="shortcutKey">Ctrl+Shift+N</span></li>
+                    <hr>
+                    <li>打开文件...<span class="shortcutKey">Ctrl+O</span></li>
+                    <li>打开文件夹...<span class="shortcutKey">Ctrl+K Ctrl+O</span></li>
+                    <li>打开工作区...</li>
+                    <li>
+                        打开最近的文件
+                        <i class="iconfont"> </i>
+                        <ul id="recentFileList">
+                            <li>重新打开已关闭的编辑器<span class="shortcutKey">Ctrl+Shift+T</span></li>
+                            <hr>
+                            <li>D:\a.html</li>
+                            <li>D:\b.html</li>
+                            <li>D:\c.html</li>
+                            <li>D:\d.html</li>
+                            <hr>
+                            <li>更多</li>
+                            <hr>
+                            <li>清除最近打开记录</li>
+                        </ul>
+                    </li>
+                    <hr>
+                    <li>将文件夹添加到工作区...</li>
+                    <li>将工作区另存为...</li>
+                    <hr>
+                    <li>保存<span class="shortcutKey">Ctrl+S</span></li>
+                    <li>另存为...<span class="shortcutKey">Ctrl+Shift+S</span></li>
+                    <li>全部保存<span class="shortcutKey">Ctrl+K S</span></li>
+                    <hr>
+                    <li>自动保存</li>
+                    <li>
+                        首选项
+                        <i class="iconfont"> </i>
+                        <ul>
+                            <li>设置</li>
+                            <li>扩展</li>
+                            <hr>
+                            <li>键盘快捷方式</li>
+                            <li>按键映射</li>
+                            <hr>
+                            <li>用户代码片段</li>
+                            <hr>
+                            <li>颜色主题</li>
+                            <li>文件图标主题</li>
+                        </ul>
+                    </li>
+                    <hr>
+                    <li>还原文件</li>
+                    <li>关闭编辑器<span class="shortcutKey">Ctrl+F4</span></li>
+                    <li>关闭文件夹<span class="shortcutKey">Ctrl+K F</span></li>
+                    <li>关闭窗口<span class="shortcutKey">Ctrl+Shift+S</span></li>
+                    <hr>
+                    <li>退出</li>
+                </ul>
+            </li>
+            <li>
+                编辑(E)
+                <ul>
+                    <li>撤销</li>
+                    <li>恢复</li>
+                    <hr>
+                    <li>剪切</li>
+                    <li>复制</li>
+                    <li>粘贴</li>
+                    <hr>
+                    <li>查找</li>
+                    <li>替换</li>
+                    <hr>
+                    <li>在文件中查找</li>
+                    <li>在文件中替换</li>
+                    <hr>
+                    <li>切换行注释</li>
+                    <li>切换块注释</li>
+                    <li>Emmet:展开缩写</li>
+                    <li>Emmet...</li>
+                </ul>
+            </li>
+            <li>
+                选择(S)
+                <ul>
+                    <li>全选</li>
+                    <li>展开选定内容</li>
+                    <li>缩小选定范围</li>
+                    <hr>
+                    <li>向上复制一行</li>
+                    <li>向下复制一行</li>
+                    <li>向上移动一行</li>
+                    <li>向下移动一行</li>
+                    <hr>
+                    <li>切换为"Ctrl+单击"进行多光标功能</li>
+                    <li>在上面添加光标</li>
+                    <li>在下面添加光标</li>
+                    <li>在行尾添加光标</li>
+                    <li>添加下一个匹配项</li>
+                    <li>添加上一个匹配项</li>
+                    <li>选择所有匹配项</li>
+                </ul>
+            </li>
+            <li>查看(V)</li>
+            <li>转到(G)</li>
+            <li>调试(D)</li>
+            <li>终端(T)</li>
+            <li>帮助(H)</li>
+        </ul>
+    </div>
+
+</body>
+
+</html>
