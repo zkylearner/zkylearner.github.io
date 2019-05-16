@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>radio-slider</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        body{
+            background-color:rgb(96,187,205);
+        }
+
+        img {
+            width: 1226px;
+            height: 460px;
+            /* display: none; */
+            opacity: 0;
+            position:absolute;
+            transition:opacity 0.5s;
+        }
+
+        .slider {
+            width: 1226px;
+            height: 460px;
+            margin:auto;
+            position: absolute;
+            top:0;bottom:0;left:0;right:0;
+        }
+
+        input[type="radio"] {
+            position: absolute;
+            display: none;
+        }
+
+        label {
+            display: inline-block;
+            width: 6px;
+            height: 6px;
+            /* background-color: rgb(135,135,135); */
+            border: 2px solid rgb(142, 142, 142);
+            border-radius: 6px;
+            margin: 0 5px;
+            cursor:pointer;
+        }
+
+        input[type="radio"]:checked+img {
+            /* display: block; */
+            opacity: 1;
+        }
+        .labelList{
+            position:absolute;
+            bottom:5%;
+            right:5%;
+        }
+
+        #img1:checked ~ div [for="img1"],#img2:checked ~ div [for="img2"],#img3:checked ~ div [for="img3"],#img4:checked ~ div [for="img4"],#img5:checked ~ div [for="img5"]{
+            background-color:rgb(135,135,135);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="slider">
+        <input type="radio" name="sliderImg" id="img1" checked>
+        <img src="https://i1.mifile.cn/a4/xmad_15566146318197_mAghl.jpg" alt="" class="img1">
+        <input type="radio" name="sliderImg" id="img2">
+        <img src="https://i1.mifile.cn/a4/xmad_15529884424562_HKYaG.jpg" alt="" class="img2">
+        <input type="radio" name="sliderImg" id="img3">
+        <img src="https://i1.mifile.cn/a4/xmad_15579184778872_ECdvK.jpg" alt="" class="img3">
+        <input type="radio" name="sliderImg" id="img4">
+        <img src="https://i1.mifile.cn/a4/xmad_15548066591437_Stxlj.jpg" alt="" class="img4">
+        <input type="radio" name="sliderImg" id="img5">
+        <img src="https://i1.mifile.cn/a4/xmad_15476942061027_STEvM.jpg" alt="" class="img5">
+        
+        <div class="labelList">
+            <label for="img1"></label>
+            <label for="img2"></label>
+            <label for="img3"></label>
+            <label for="img4"></label>
+            <label for="img5"></label>
+        </div>
+    </div>
+</body>
+
+</html>
