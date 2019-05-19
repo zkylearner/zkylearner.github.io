@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>abs-center</title>
+    <style>
+        html,body{
+            height: 100%;
+            margin:0;
+            padding:0;
+            text-align: center;
+        }
+        .box{
+            height: 50%;
+            width:30%;
+            margin:auto;
+            border:solid 1px;
+            line-height: 50%;
+        }
+        .content1{
+            display: inline-block;
+            width:50%;
+            height: 50%;
+            vertical-align: middle;
+            background-color: pink;
+            margin-top:12.5%;
+        }
+        .position{
+            position: relative;
+        }
+        .content2{
+            width:50%;
+            height: 50%;
+            position:absolute;
+            top:0;bottom:0;left:0;right:0;
+            margin:auto;
+            background-color: violet;
+        }
+    </style>
+</head>
+<body>
+    <!-- 行内水平垂直居中 -->
+    <div class="inline box">
+        <div class="content1"></div>
+    </div>
+    <!-- 定位实现水平垂直居中 -->
+    <div class="position box">
+        <div class="content2"></div>
+    </div>
+</body>
+</html>

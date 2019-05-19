@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>oald</title>
+    <style>
+        html,body{
+            height: 100%;
+            font-size: 0;
+        }
+        *{
+            margin:0;
+            padding:0;
+            box-sizing: border-box;
+        }
+        .findWord{
+            position:absolute;
+            width:20%;
+            height: 100%;
+            background-color: cyan;
+            left: 0;
+            right: 80%;
+            overflow: auto;
+        }
+        main{
+            position:absolute;
+            width:40%;
+            height: 100%;
+            border: 1px solid black;
+            border-width: 0 1px;
+            background-color: cyan;
+            left: 20%;
+            right: 40%;
+            overflow: auto;
+        }
+        .vocabulary{
+            position:absolute;
+            width:20%;
+            height: 100%;
+            background-color: cyan;
+            left: 60%;
+            right: 20%;
+            overflow: auto;
+        }
+        .history{
+            position:absolute;
+            width:20%;
+            height: 100%;
+            border-left: 1px solid black;
+            background-color: cyan;
+            left: 80%;
+            right: 0;
+            overflow: auto;
+        }
+    </style>
+</head>
+<body>
+    <aside class="findWord"></aside>
+    <main></main>
+    <aside class="vocabulary"></aside>
+    <aside class="history"></aside>
+</body>
+</html>
