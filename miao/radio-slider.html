@@ -18,6 +18,7 @@
         img {
             width: 1226px;
             height: 460px;
+            /*transition不支持display过渡*/
             /* display: none; */
             opacity: 0;
             position:absolute;
@@ -37,7 +38,7 @@
             display: none;
         }
 
-        label {
+        .labelList label {
             display: inline-block;
             width: 6px;
             height: 6px;
@@ -48,6 +49,34 @@
             cursor:pointer;
         }
 
+        .labelList-left label {
+            display: inline-block;
+            background-image: url(https://i1.mifile.cn/f/i/2014/cn/icon/icon-slides.png);
+            width: 38px;
+            height: 69px;
+            background-position: 78px;
+            cursor:pointer;
+            position:absolute;
+            display: none;
+        }
+        .labelList-left label:hover{
+            background-position: -2px;
+        }
+
+        .labelList-right label {
+            display: inline-block;
+            background-image: url(https://i1.mifile.cn/f/i/2014/cn/icon/icon-slides.png);
+            width: 38px;
+            height: 69px;
+            background-position: 41.5px;
+            cursor:pointer;
+            position:absolute;
+            display: none;
+        }
+        .labelList-right label:hover{
+            background-position: -44px;
+        }
+
         input[type="radio"]:checked+img {
             /* display: block; */
             opacity: 1;
@@ -55,11 +84,31 @@
         .labelList{
             position:absolute;
             bottom:5%;
-            right:5%;
+            right:3%;
         }
 
-        #img1:checked ~ div [for="img1"],#img2:checked ~ div [for="img2"],#img3:checked ~ div [for="img3"],#img4:checked ~ div [for="img4"],#img5:checked ~ div [for="img5"]{
-            background-color:rgb(135,135,135);
+        #img1:checked ~ .labelList [for="img1"],#img2:checked ~ .labelList [for="img2"],#img3:checked ~ .labelList [for="img3"],#img4:checked ~ .labelList [for="img4"],#img5:checked ~ .labelList [for="img5"]{
+            background-color: rgb(135,135,135);
+        }
+
+        .labelList-right{
+            position:absolute;
+            right:38px;
+            top:50%;
+        }
+
+        #img1:checked ~ .labelList-right [for="img2"],#img2:checked ~ .labelList-right [for="img3"],#img3:checked ~ .labelList-right [for="img4"],#img4:checked ~ .labelList-right [for="img5"],#img5:checked ~ .labelList-right [for="img1"]{
+            display: inline-block;
+        }
+        
+        .labelList-left{
+            position:absolute;
+            left:0;
+            top:50%;
+        }
+
+        #img1:checked ~ .labelList-left [for="img5"],#img2:checked ~ .labelList-left [for="img1"],#img3:checked ~ .labelList-left [for="img2"],#img4:checked ~ .labelList-left [for="img3"],#img5:checked ~ .labelList-left [for="img4"]{
+            display: inline-block;
         }
     </style>
 </head>
@@ -78,6 +127,22 @@
         <img src="https://i1.mifile.cn/a4/xmad_15476942061027_STEvM.jpg" alt="" class="img5">
         
         <div class="labelList">
+            <label for="img1"></label>
+            <label for="img2"></label>
+            <label for="img3"></label>
+            <label for="img4"></label>
+            <label for="img5"></label>
+        </div>
+
+        <div class="labelList-left">
+            <label for="img1"></label>
+            <label for="img2"></label>
+            <label for="img3"></label>
+            <label for="img4"></label>
+            <label for="img5"></label>
+        </div>
+
+        <div class="labelList-right">
             <label for="img1"></label>
             <label for="img2"></label>
             <label for="img3"></label>

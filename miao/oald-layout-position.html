@@ -27,13 +27,23 @@
         main{
             position:absolute;
             width:40%;
-            height: 100%;
             border: 1px solid black;
             border-width: 0 1px;
             background-color: cyan;
+            top:100px;
+            bottom:0;
             left: 20%;
             right: 40%;
             overflow: auto;
+        }
+        header{
+            /*需要高度随窗口变化，根据需要指定vh、vw*/
+            /* height:8vw; */
+            height: 100px;
+            width:40%;
+            background-color: pink;
+            position:absolute;
+            left: 20%;
         }
         .vocabulary{
             position:absolute;
@@ -58,6 +68,7 @@
 </head>
 <body>
     <aside class="findWord"></aside>
+    <header></header>
     <main></main>
     <aside class="vocabulary"></aside>
     <aside class="history"></aside>

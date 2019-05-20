@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>contain</title>
+    <style>
+        div{
+            position: relative;
+            background-color: cyan;
+            width: 400px;
+            height: 240px;
+            margin:auto;
+        }
+        img{
+            /*图片适应div尺寸，当尺寸大于div设定尺寸时自动调整为div尺寸*/
+            max-height: 100%;
+            max-width: 100%;
+            /**同理，可根据需要设置显示图片的最小尺寸*/
+            /* min-height: 100%; */
+            /* min-width: 100%; */
+            /*图片居中*/
+            position:absolute;
+            left: 0;right: 0;top:0;bottom:0;
+            margin: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="contain">
+        <img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1558194648345&di=f81c10b965723ee71f9d81377d95f858&imgtype=0&src=http%3A%2F%2Fxin.tgbus.com%2Fuploads%2Fallimg%2F141014%2F96-141014094129444.gif" alt="">
+    </div>
+    <hr>
+    <div class="contain">
+        <img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1558362568584&di=a3881b18b54994cf347b23857469ef4f&imgtype=0&src=http%3A%2F%2Fimg0.pcgames.com.cn%2Fpcgames%2F1310%2F09%2F3128635_d1b6b44bd11373f0351e445fa50f4bfbf9ed04c5_thumb.jpg" alt="">
+    </div>
+    <hr>
+    <div class="contain">
+        <img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1558195310067&di=1f5370af2ebb49641a8882aa9fd70430&imgtype=0&src=http%3A%2F%2Fimg.tukexw.com%2Fimg%2Fc5274808b5a0d76b.jpg" alt="">
+    </div>
+</body>
+</html>
