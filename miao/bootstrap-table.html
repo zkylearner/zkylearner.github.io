@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>bootstrap-table</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body>div {
+            width: 100%;
+            width: 835px;
+            padding: .75rem;
+        }
+
+        .table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        .table td,
+        .table th {
+            padding: 0.75rem;
+        }
+
+        .table thead tr th {
+            text-align: left;
+        }
+
+        .table tr>th:first-child {
+            text-align: left;
+        }
+
+        /*table,添加表格基础样式*/
+        .table tr {
+            border-top: solid 1px rgb(222, 226, 230);
+        }
+
+        .table thead tr {
+            border-bottom: solid 2px rgb(222, 226, 230);
+        }
+
+        /*table-dark 黑色背景*/
+        .table-dark {
+            background-color: rgb(52, 58, 64);
+            color: white;
+        }
+
+        .table-dark tr {
+            border-top: solid 1px rgb(69, 77, 85);
+        }
+
+        .table-dark thead tr {
+            border-bottom: solid 2px rgb(69, 77, 85);
+        }
+
+        /*table-striped*/
+        .table-striped tbody tr:nth-child(odd) {
+            background-color: rgb(242, 242, 242);
+        }
+
+        .table-striped.table-dark tbody tr:nth-child(odd) {
+            background-color: rgb(62, 68, 74);
+        }
+
+        /*table-bordered*/
+        .table-bordered td,
+        .table-bordered th {
+            border: solid 1px rgb(222, 226, 230);
+        }
+
+        .table-bordered.table-dark td,
+        .table-bordered.table-dark th {
+            border: solid 1px rgb(62, 68, 74);
+        }
+
+        /*table-borderless 去除表格边框*/
+        .table-borderless tr {
+            border-top: none;
+        }
+
+        .table-borderless thead tr {
+            border-bottom: none;
+        }
+
+        .table-borderless th,
+        .table-borderless td {
+            border-style: none !important;
+        }
+
+        /*table-hover*/
+        .table-hover tbody tr:hover {
+            background-color: rgb(236, 236, 236);
+        }
+
+        .table-hover.table-dark tbody tr:hover {
+            background-color: rgb(63, 73, 78);
+        }
+
+        /*table-sm*/
+        .table-sm td,
+        .table-sm th {
+            padding: 0.5rem;
+        }
+
+        /*color*/
+        .table-active,
+        .table-active>th,
+        .table-active>td {
+            background-color: rgba(0, 0, 0, 0.075);
+        }
+
+        .table-primary,
+        .table-primary>th,
+        .table-primary>td {
+            background-color: #b8daff;
+        }
+
+        .table-secondary,
+        .table-secondary>th,
+        .table-secondary>td {
+            background-color: #d6d8db;
+        }
+
+        .table-success,
+        .table-success>th,
+        .table-success>td {
+            background-color: #c3e6cb;
+        }
+
+        .table-danger,
+        .table-danger>th,
+        .table-danger>td {
+            background-color: #f5c6cb;
+        }
+
+        .table-warning,
+        .table-warning>th,
+        .table-warning>td {
+            background-color: #ffeeba;
+        }
+
+        .table-info,
+        .table-info>th,
+        .table-info>td {
+            background-color: #bee5eb;
+        }
+
+        .table-light,
+        .table-light>th,
+        .table-light>td {
+            background-color: #fdfdfe;
+        }
+
+        .table-dark,
+        .table-dark>th,
+        .table-dark>td {
+            background-color: #343a40;
+        }
+
+        /*bg color*/
+        .bg-primary {
+            background: #007bff !important;
+        }
+
+        .bg-success {
+            background: #28a745 !important;
+        }
+
+        .bg-warning {
+            background: #ffc107 !important;
+        }
+
+        .bg-danger {
+            background: #dc3545 !important;
+        }
+
+        .bg-info {
+            background: #17a2b8 !important;
+        }
+
+        /*captions*/
+        caption {
+            padding-top: .75rem;
+            padding-bottom: .75rem;
+            color: #6c757d;
+            text-align: left;
+            caption-side: bottom;
+        }
+
+        .table-responsive {
+            overflow: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="table-responsive">
+        <table class="table table-hover table-bordered table-striped table-dark table-sm table-borderless">
+            <caption>List of users</caption>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>First</th>
+                    <th>Last</th>
+                    <th>Handle</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th>1</th>
+                    <td>Mark</td>
+                    <td>Otto</td>
+                    <td>@mdo</td>
+                </tr>
+                <tr>
+                    <th>2</th>
+                    <td>Jacob</td>
+                    <td>Thornton</td>
+                    <td>@fat</td>
+                </tr>
+                <tr>
+                    <th>3</th>
+                    <td>Larry</td>
+                    <td>the Bird</td>
+                    <td>@twitter</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <hr>
+    <div class="bd-example">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Class</th>
+                    <th scope="col">Heading</th>
+                    <th scope="col">Heading</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="table-active">
+                    <th scope="row">Active</th>
+                    <td>Cell</td>
+                    <td>Cell</td>
+                </tr>
+                <tr>
+                    <th scope="row">Default</th>
+                    <td>Cell</td>
+                    <td>Cell</td>
+                </tr>
+
+
+                <tr class="table-primary">
+                    <th scope="row">Primary</th>
+                    <td>Cell</td>
+                    <td>Cell</td>
+                </tr>
+                <tr class="table-secondary">
+                    <th scope="row">Secondary</th>
+                    <td>Cell</td>
+                    <td>Cell</td>
+                </tr>
+                <tr class="table-success">
+                    <th scope="row">Success</th>
+                    <td>Cell</td>
+                    <td>Cell</td>
+                </tr>
+                <tr class="table-danger">
+                    <th scope="row">Danger</th>
+                    <td>Cell</td>
+                    <td>Cell</td>
+                </tr>
+                <tr class="table-warning">
+                    <th scope="row">Warning</th>
+                    <td>Cell</td>
+                    <td>Cell</td>
+                </tr>
+                <tr class="table-info">
+                    <th scope="row">Info</th>
+                    <td>Cell</td>
+                    <td>Cell</td>
+                </tr>
+                <tr class="table-light">
+                    <th scope="row">Light</th>
+                    <td>Cell</td>
+                    <td>Cell</td>
+                </tr>
+                <tr class="table-dark">
+                    <th scope="row">Dark</th>
+                    <td>Cell</td>
+                    <td>Cell</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <hr>
+    <div class="bd-example">
+        <table class="table table-dark">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Heading</th>
+                    <th scope="col">Heading</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="bg-primary">
+                    <th scope="row">1</th>
+                    <td>Cell</td>
+                    <td>Cell</td>
+                </tr>
+                <tr>
+                    <th scope="row">2</th>
+                    <td>Cell</td>
+                    <td>Cell</td>
+                </tr>
+                <tr class="bg-success">
+                    <th scope="row">3</th>
+                    <td>Cell</td>
+                    <td>Cell</td>
+                </tr>
+                <tr>
+                    <th scope="row">4</th>
+                    <td>Cell</td>
+                    <td>Cell</td>
+                </tr>
+                <tr class="bg-info">
+                    <th scope="row">5</th>
+                    <td>Cell</td>
+                    <td>Cell</td>
+                </tr>
+                <tr>
+                    <th scope="row">6</th>
+                    <td>Cell</td>
+                    <td>Cell</td>
+                </tr>
+                <tr class="bg-warning">
+                    <th scope="row">7</th>
+                    <td>Cell</td>
+                    <td>Cell</td>
+                </tr>
+                <tr>
+                    <th scope="row">8</th>
+                    <td>Cell</td>
+                    <td>Cell</td>
+                </tr>
+                <tr class="bg-danger">
+                    <th scope="row">9</th>
+                    <td>Cell</td>
+                    <td>Cell</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+
+</html>

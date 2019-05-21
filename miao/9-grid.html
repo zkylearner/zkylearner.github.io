@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>9-grid-hightLight</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            overflow: hidden;
+        }
+
+        td {
+            border: 5px none blue;
+            width: 50px;
+            height: 50px;
+            text-align: center;
+            vertical-align: middle;
+            cursor: pointer;
+        }
+
+        tr {
+            border: 5px solid blue;
+        }
+
+        col {
+            border: 5px solid blue;
+        }
+
+        td:hover {
+            border: 5px solid red;
+        }
+        .numBox{
+            width:176px;
+            font-size:0;
+            margin:5px 0 0 5px;
+        }
+        .numBox div{
+            display: inline-block;
+            width:57px;
+            max-height: 57px;
+            /*去除边框高度，居中*/
+            line-height: 47px;
+            border: 5px solid blue;
+            box-sizing: border-box;
+            font-size:16px;
+            margin-left:-5px;
+            margin-top:-5px;
+            text-align: center;
+            cursor: pointer;
+        }
+        .numBox div:hover{
+            border: 5px solid red;
+            position: relative;
+        }
+    
+    </style>
+</head>
+
+<body>
+    <div class="table-box">
+        <table>
+            <colgroup>
+                <col>
+                <col>
+                <col>
+            </colgroup>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>2</td>
+                    <td>3</td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td>5</td>
+                    <td>6</td>
+                </tr>
+                <tr>
+                    <td>7</td>
+                    <td>8</td>
+                    <td>9</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <hr>
+    <div class="numBox">
+        <div> <span>1</span> </div>
+        <div> <span>2</span> </div>
+        <div> <span>3</span> </div>
+        <div> <span>4</span> </div>
+        <div> <span>5</span> </div>
+        <div> <span>6</span> </div>
+        <div> <span>7</span> </div>
+        <div> <span>8</span> </div>
+        <div> <span>9</span> </div>
+    </div>
+</body>
+
+</html>
