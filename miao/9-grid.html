@@ -13,7 +13,8 @@
         }
 
         td {
-            border: 5px none blue;
+            /* border: 5px none blue; */
+            border: 5px inset blue;
             width: 50px;
             height: 50px;
             text-align: center;
@@ -32,34 +33,51 @@
         td:hover {
             border: 5px solid red;
         }
-        .numBox{
-            width:176px;
-            font-size:0;
-            margin:5px 0 0 5px;
+
+        .numBox {
+            width: 176px;
+            font-size: 0;
+            margin: 5px 0 0 5px;
         }
-        .numBox div{
-            display: inline-block;
-            width:57px;
-            max-height: 57px;
+
+        .numBox div {
+            width: 62px;
+            height: 62px;
             /*去除边框高度，居中*/
             line-height: 47px;
             border: 5px solid blue;
             box-sizing: border-box;
-            font-size:16px;
-            margin-left:-5px;
-            margin-top:-5px;
+            font-size: 16px;
+            margin-left: -5px;
+            margin-top: -5px;
             text-align: center;
             cursor: pointer;
         }
-        .numBox div:hover{
+
+        .numBox div:hover {
             border: 5px solid red;
             position: relative;
         }
-    
+
+        .numBox.inline div{
+            display: inline-block;
+        }
+
+        .numBox.float div{
+            float:left;
+        }
+
+        .numBox.float::after{
+            content:'';
+            clear: both;
+            display: block;
+        }
+
     </style>
 </head>
 
 <body>
+    <p>table</p>
     <div class="table-box">
         <table>
             <colgroup>
@@ -87,7 +105,21 @@
         </table>
     </div>
     <hr>
-    <div class="numBox">
+    <p>inline-block</p>
+    <div class="numBox inline">
+        <div> <span>1</span> </div>
+        <div> <span>2</span> </div>
+        <div> <span>3</span> </div>
+        <div> <span>4</span> </div>
+        <div> <span>5</span> </div>
+        <div> <span>6</span> </div>
+        <div> <span>7</span> </div>
+        <div> <span>8</span> </div>
+        <div> <span>9</span> </div>
+    </div>
+    <hr>
+    <p>float</p>
+    <div class="numBox float">
         <div> <span>1</span> </div>
         <div> <span>2</span> </div>
         <div> <span>3</span> </div>
