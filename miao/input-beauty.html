@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>bootstrap-input-group</title>
+    <style>
+        html,
+        body {
+            width: 100%;
+            margin: 0;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin:0;
+            padding:0;
+        }
+
+        .me {
+            display: table;
+            margin: 10px auto;
+            width: 95%;
+            /* border-collapse: collapse; */
+            border-spacing: 0;
+        }
+
+        .me>input {
+            width: 100%;
+            height: 40px;
+            margin: 0;
+            padding-left: 15px;
+            border: solid 2px rgb(206, 212, 218);
+            border-radius: 5px 0 0 5px;
+            border-right-style: none;
+            outline: none;
+            display: table-cell;
+        }
+
+        .me>span {
+            display: table-cell;
+            width: 150px;
+            /* 设置高度会错误，待定 */
+            /* height: 40px; */
+            padding: 0;
+            border: solid 2px rgb(206, 212, 218);
+            background-color: rgb(233, 236, 239);
+            text-align: center;
+            border-radius: 0 5px 5px 0;
+        }
+
+        input:focus {
+            border: rgb(191, 222, 255) solid 10px;
+        }
+
+    </style>
+</head>
+
+<body>
+    <div class="me">
+        <input type="text" placeholder="Recipient's username">
+        <span>@example.com</span>
+    </div>
+</body>
+
+</html>

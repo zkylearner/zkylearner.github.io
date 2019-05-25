@@ -40,7 +40,12 @@
             margin: 5px 0 0 5px;
         }
 
-        .numBox div {
+        ol {
+            list-style-type: none;
+            padding-left: 0px;
+        }
+
+        .numBox li {
             width: 62px;
             height: 62px;
             /*去除边框高度，居中*/
@@ -52,27 +57,35 @@
             margin-top: -5px;
             text-align: center;
             cursor: pointer;
-        }
-
-        .numBox div:hover {
-            border: 5px solid red;
             position: relative;
         }
 
-        .numBox.inline div{
+        .numBox li:hover {
+            border-color: red;
+            z-index: 1;
+        }
+
+        .numBox.inline li {
             display: inline-block;
         }
 
-        .numBox.float div{
-            float:left;
+        .numBox.float li {
+            float: left;
         }
 
-        .numBox.float::after{
-            content:'';
+        .clearfix::after {
+            content: '';
             clear: both;
             display: block;
         }
 
+        .numBox.a li {
+            float: left;
+        }
+
+        a{
+            text-decoration: none;
+        }
     </style>
 </head>
 
@@ -107,28 +120,49 @@
     <hr>
     <p>inline-block</p>
     <div class="numBox inline">
-        <div> <span>1</span> </div>
-        <div> <span>2</span> </div>
-        <div> <span>3</span> </div>
-        <div> <span>4</span> </div>
-        <div> <span>5</span> </div>
-        <div> <span>6</span> </div>
-        <div> <span>7</span> </div>
-        <div> <span>8</span> </div>
-        <div> <span>9</span> </div>
+        <ol>
+            <li>1</li>
+            <li>2</li>
+            <li>3</li>
+            <li>4</li>
+            <li>5</li>
+            <li>6</li>
+            <li>7</li>
+            <li>8</li>
+            <li>9</li>
+        </ol>
     </div>
     <hr>
     <p>float</p>
-    <div class="numBox float">
-        <div> <span>1</span> </div>
-        <div> <span>2</span> </div>
-        <div> <span>3</span> </div>
-        <div> <span>4</span> </div>
-        <div> <span>5</span> </div>
-        <div> <span>6</span> </div>
-        <div> <span>7</span> </div>
-        <div> <span>8</span> </div>
-        <div> <span>9</span> </div>
+    <div class="numBox float clearfix">
+        <ol>
+            <li>1</li>
+            <li>2</li>
+            <li>3</li>
+            <li>4</li>
+            <li>5</li>
+            <li>6</li>
+            <li>7</li>
+            <li>8</li>
+            <li>9</li>
+        </ol>
+    </div>
+
+    <hr>
+
+    <p>a标签</p>
+    <div class="numBox a clearfix">
+        <ol>
+            <li><a href="">1</a></li>
+            <li><a href="">2</a></li>
+            <li><a href="">3</a></li>
+            <li><a href="">4</a></li>
+            <li><a href="">5</a></li>
+            <li><a href="">6</a></li>
+            <li><a href="">7</a></li>
+            <li><a href="">8</a></li>
+            <li><a href="">9</a></li>
+        </ol>
     </div>
 </body>
 
