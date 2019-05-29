@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>mobike-media</title>
+    <style>
+        body {
+            margin: 0;
+        }
+
+        ul {
+            list-style-type: none;
+            padding-left: 0;
+            margin: 0;
+        }
+        .hero-img{
+            width:100%;
+            height:762px;
+            background-image: url("https://mobike.com/cn/assets/themes/moby/img/landing/hero-bg-4.jpg");
+            background-size: cover;
+        }
+        .hero-promos{
+            margin-left:-1px;
+            margin-right:-1px;
+            padding:1px 0;
+        }
+
+        .hero-promos li {
+            float: left;
+            width: 25%;
+            height: 260px;
+            background-size: cover;
+            background-position: center center;
+            border:white 1px solid;
+            overflow: hidden;
+            box-sizing: border-box;
+        }
+
+        @media (max-width:1080px) {
+            .hero-promos li {
+                width: 50%;
+                /* height: 260px; */
+            }
+            .hero-img{
+                height:550px;
+            }
+        }
+
+        @media (max-width:640px) {
+            .hero-promos li {
+                width: 100%;
+                /* height: 260px; */
+            }
+            .hero-img{
+                height:370px;
+            }
+        }
+
+        .hero-promos li:nth-child(1) {
+            background-image: url("https://mobike.com/cn/assets/themes/moby/img/promo-01.jpg");
+        }
+
+        .hero-promos li:nth-child(2) {
+            background-image: url("https://mobike.com/cn/assets/themes/moby/img/promo-02.jpg");
+        }
+
+        .hero-promos li:nth-child(3) {
+            background-image: url("https://mobike.com/cn/assets/themes/moby/img/promo-03.jpg");
+        }
+
+        .hero-promos li:nth-child(4) {
+            background-image: url("https://mobike.com/cn/assets/themes/moby/img/promo-04.jpg");
+        }
+
+        .meta-links li {
+            box-sizing: border-box;
+            width: 33.3%;
+            float: left;
+            padding: 30px 0 30px;
+        }
+
+        .meta-links img {
+            width: 50px;
+            /* height:50px; */
+            float: left;
+            margin: 10px;
+            margin-left: 15%;
+        }
+
+        @media (max-width:640px) {
+            .meta-links li {
+                width: 50%;
+                padding: 10px 0 10px;
+            }
+            .meta-links img {
+                margin-left: 5%;
+            }
+        }
+        .meta-links p {
+            margin: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="hero-img">
+        <img src="" alt="">
+    </div>
+    <ul class="hero-promos">
+        <li><img src="" alt=""></li>
+        <li><img src="" alt=""></li>
+        <li><img src="" alt=""></li>
+        <li><img src="" alt=""></li>
+    </ul>
+    <ul class="meta-links clearfix">
+        <li>
+            <img src="https://mobike.com/cn/assets/themes/moby/img/icon-wechat.png" alt="">
+            <p>微信小程序</p>
+            <p>微信扫一扫，直接用车</p>
+        </li>
+        <li>
+            <img src="https://mobike.com/cn/assets/themes/moby/img/icon-rp.png" alt="">
+            <p>红包车</p>
+            <p>骑摩拜，能赚钱</p>
+        </li>
+        <li>
+            <img src="https://mobike.com/cn/assets/themes/moby/img/icon-credit.png" alt="">
+            <p>摩范分</p>
+            <p>文明骑行，信用生活</p>
+        </li>
+
+    </ul>
+</body>
+
+</html>
