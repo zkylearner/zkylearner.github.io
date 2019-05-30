@@ -13,31 +13,26 @@
             text-align: center;
         }
         .box{
-            height: 50%;
-            width:30%;
+            height: 240px;
+            width:240px;
             margin:auto;
             border:solid 1px;
-            line-height: 50%;
-        }
-        .inline::after{
-            content:'';
-            display: inline-block;
-            height: 100%;
-            vertical-align: middle;
+            line-height: 240px;
         }
         .content1{
             display: inline-block;
-            width:50%;
-            height: 50%;
-            vertical-align: middle;
+            width:100px;
+            height: 100px;
+            
             background-color: pink;
+            vertical-align: middle;
         }
         .position{
             position: relative;
         }
         .content2{
-            width:50%;
-            height: 50%;
+            width:100px;
+            height: 100px;
             position:absolute;
             top:0;bottom:0;left:0;right:0;
             margin:auto;
@@ -50,6 +45,7 @@
     <div class="inline box">
         <div class="content1"></div>
     </div>
+    <hr>
     <!-- 定位实现水平垂直居中 -->
     <div class="position box">
         <div class="content2"></div>
