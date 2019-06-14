@@ -1,0 +1,399 @@
+.small-aside {
+  position: fixed;
+  z-index: 9999;
+  width: 27px;
+  bottom: 80px;
+  right: 50%;
+  margin-right: -640.5px;
+
+  ul {
+    margin: 0;
+  }
+
+  li {
+    background-color: #fff;
+    border-bottom: 1px solid #f5f5f5;
+    width: 27px;
+    height: 40px;
+    text-align: center;
+    position: relative;
+
+    img {
+      width: 20px;
+      height: 20px;
+      margin-top: 10px;
+    }
+  }
+
+  .hover-img {
+    display: none;
+    position: absolute;
+    top: 0px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    margin: auto;
+  }
+
+  li:hover,
+  .return-top:hover {
+    .original-img {
+      display: none;
+    }
+
+    .hover-img,
+    .tips {
+      display: block;
+    }
+  }
+
+  .return-top {
+    width: 27px;
+    height: 40px;
+    margin-top: 5vh;
+    text-align: center;
+    background-color: #fff;
+    position: relative;
+
+    img {
+      width: 20px;
+      height: 20px;
+      margin-top: 1vh;
+    }
+
+    .tips {
+      margin-top: 1vh;
+      right: 25px;
+    }
+  }
+
+  .tips {
+    display: none;
+    width: 126px;
+    height: 29px;
+    line-height: 29px;
+    margin: 5.5px 0;
+    position: absolute;
+    z-index: 9999;
+    right: 27px;
+    padding-right: 10px;
+
+    a {
+      display: block;
+      background-color: #fff;
+      color: #757575;
+      font-size: 14px;
+      float: right;
+      padding: 0px 8px;
+    }
+    &::before{
+      content:'';
+      display: block;
+      border:solid #fff 8px;
+      border-color: transparent transparent transparent #fff;
+      width:0px;
+      position: absolute;
+      right:-6px;
+      top:6px
+    }
+  }
+
+  .QR-tips {
+    .QRcode {
+      width: 100px;
+      height: 100px;
+      margin: 20px 14px 0;
+    }
+
+    p {
+      margin: 0 auto 14px;
+      line-height: 14px;
+    }
+  }
+}
+
+//产品展示区域
+.product-area {
+  background: #f5f5f5;
+}
+
+.product-title {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 200;
+  line-height: 58px;
+  a{color: #333;}
+  position: relative;
+  .head-link {
+    float: right;
+    font-size: 16px;
+    color: #424242;
+
+    &:hover {
+      color: #ff6700;
+      .iconfont {
+        background-color: #ff6700;
+        border-color: #ff6700;
+      }
+    }
+
+    .iconfont {
+      // margin-left:8px;
+      font-size: 14px;
+      border: solid #b0b0b0;
+      border-radius: 12px;
+      color: #fff;
+      background-color: #b0b0b0;
+    }
+  }
+}
+.title-box{
+  position: relative;
+  &+.product-show>ul>li{
+    display: none;
+  }
+  &+.product-show>ul>li.tab-active{
+    display: block;
+  }
+}
+.right-title{
+  position: absolute;
+  right:0;
+  top:0;
+  li{
+    margin-left:30px;
+    display: inline-block;
+    font-size: 16px;
+    color: #424242;
+    &:hover{
+      color: #ff6700;
+      border-bottom:#ff6700 solid 2px;
+    }
+  }
+}
+
+.product-show {
+  margin: 0 0 -14px -14px;
+
+  ul {
+    margin: 0;
+  }
+
+  .product-box {
+    position: relative;
+    float: left;
+    width: 234px;
+    height: 300px;
+    padding: 20px 0;
+    margin-left: 14px;
+    margin-bottom: 14px;
+    background: #fff;
+    transition: all .2s linear;
+    text-align: center;
+
+    &:hover {
+      transform: translate(0,-2px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    .product-pic {
+      img {
+        width: 160px;
+        height: 160px;
+      }
+    }
+
+    .flag {
+      background-color: #83c44e;
+      position: absolute;
+      top: 0;
+      left: 50%;
+      width: 64px;
+      height: 20px;
+      margin-left: -32px;
+      font-size: 12px;
+      line-height: 20px;
+      text-align: center;
+      color: #fff;
+    }
+
+    .flag-red {
+      background-color: #e53935;
+    }
+
+    .product-info {
+      .title {
+        margin: 0 10px 2px;
+        font-size: 14px;
+        font-weight: 400;
+        text-align: center;
+
+        a {
+          color: #333;
+          display: block;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          overflow: hidden;
+        }
+      }
+
+      .info {
+        margin: 0 10px 10px;
+        height: 18px;
+        font-size: 12px;
+        text-align: center;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+        color: #b0b0b0;
+      }
+
+      .price {
+        text-align: center;
+        color: #ff6700;
+        height: 18px;
+        s {
+          color: #b0b0b0;
+        }
+      }
+    }
+    &:hover .review-box{
+      height: 76px;
+      opacity: 1;
+    }
+    .review-box{
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      z-index: 3;
+      width: 234px;
+      height: 0;
+      overflow: hidden;
+      font-size: 12px;
+      background: #ff6700;
+      opacity: 0;
+      transition: all .2s linear;
+      text-align: left;
+      a{
+        display: block;
+        padding: 8px 30px;
+        outline: 0;
+      }
+      .review {
+        display: block;
+        margin-bottom: 5px;
+        color: #fff;
+      }
+      .author {
+        display: block;
+        color: rgba(255,255,255,0.6);
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+      }
+    }
+  }
+
+  .product-aside {
+    width: 248px;
+    height: 600px;
+    float: left;
+
+    .product-box {
+      padding: 0;
+    }
+
+    .product-pic {
+      img {
+        width: 234px;
+        height: 300px;
+      }
+    }
+  }
+
+  .big-box {
+    height: 614px;
+    padding: 0;
+
+    .product-pic {
+      img {
+        height: 614px;
+        width: 234px;
+      }
+    }
+  }
+
+  .min-box {
+    display: flex;
+    height: 143px;
+    padding-top: 30px;
+
+    .product-info {
+      flex: 1;
+      .title a{
+        width:95px;
+      }
+      .price {
+        text-align: left;
+        margin-left: 17px;
+      }
+    }
+
+    .product-pic {
+      flex: 1;
+      height: 80px;
+
+      img {
+        height: 80px;
+        width: 80px;
+      }
+    }
+  }
+
+  .more-box {
+    .product-info {
+      .title {
+        font-size: 18px;
+        color: #333;
+        // text-align: left;
+      }
+
+      small {
+        display: block;
+        font-size: 12px;
+        color: #757575;
+        margin-top:15px;
+        margin-left:-45px;
+      }
+    }
+
+    .product-pic {
+      font-size: 48px;
+      color: #ff6700;
+    }
+  }
+}
+
+.bottom-banner {
+  margin: 28px 0 22px;
+
+  img {
+    width: 1226px;
+  }
+}
+// 推荐
+.sliber-bn{
+  float: right;
+  text-align: center;
+  line-height: 58px;
+  margin-top: -58px;
+  .iconfont{
+    display: inline-block;
+    width: 36px;
+    height: 24px;
+    padding: 3px 5px;
+    border: 1px solid #e0e0e0;
+    font-size: 16px;
+    line-height: 16px;
+  }
+}

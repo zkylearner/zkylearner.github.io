@@ -1,0 +1,9 @@
+div {
+  a{
+    font-size: 30px;
+    background-color: pink;
+    &::before {
+      content: 'hello';
+    }
+  }
+}
