@@ -15,7 +15,8 @@
     var a = +prompt(),
         b = +prompt(),
         c = +prompt();
-    console.log((a + b) / c)
+    var result = Math.floor((a + b) / c)
+    console.log(result)
 </script>
 
 <script id="ch0103/04">
@@ -302,15 +303,17 @@
 
 <script id="ch0104/13">
     var x = prompt() - 0;
+    var result;
     if (x < 5) {
-        console.log(-x + 2.5)
+        result = -x + 2.5
     } else {
         if (x < 10) {
-            console.log(2 - 1.5 * (x - 3) * (x - 3))
+            result = 2 - 1.5 * (x - 3) * (x - 3)
         } else {
-            console.log(x / 2 - 1.5)
+            result = x / 2 - 1.5
         }
     }
+    console.log(result.toFixed(3))
 </script>
 
 <script id="ch0104/14">
@@ -437,4 +440,12 @@
         x2 = `${t}-${f}i`
         console.log(`x1=${x1};x2=${x2}`)
     }
+</script>
+
+<script id="ch0104/21">
+    var n = prompt();
+    var x = prompt();
+    var y = prompt();
+    var result = n - Math.ceil(y / x)
+    console.log(result)
 </script>
