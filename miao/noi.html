@@ -1,20 +1,20 @@
 <script id="ch0103/01">
-    var a = prompt()-0,
-        b = prompt()-0;
+    var a = +prompt(),
+        b = +prompt();
     console.log(a + b)
 </script>
 
 <script id="ch0103/02">
-    var a = prompt()-0,
-        b = prompt()-0,
-        c = prompt()-0;
+    var a = +prompt(),
+        b = +prompt(),
+        c = +prompt();
     console.log((a + b) * c)
 </script>
 
 <script id="ch0103/03">
-    var a = prompt()-0,
-        b = prompt()-0,
-        c = prompt()-0;
+    var a = +prompt(),
+        b = +prompt(),
+        c = +prompt();
     console.log((a + b) / c)
 </script>
 
@@ -61,8 +61,8 @@
     var r = prompt();
     var d, c, s;
     d = 2 * r
-    c = Math.PI * 2 * r
-    s = Math.PI * r * r
+    c = 3.14159 * 2 * r
+    s = 3.14159 * r * r
     console.log(d.toFixed(4), c.toFixed(4), s.toFixed(4))
 </script>
 
@@ -95,7 +95,7 @@
     var h = prompt();
     var r = prompt();
     var result = 3.14159 * r * r * h / 1000
-    console.log(Math.ceil(20 / result))
+    console.log(+Math.ceil(20 / result))
 </script>
 
 <script id="ch0103/15">
@@ -258,18 +258,18 @@
     var n = prompt() - 0,
         result = '';
     if (n % 3 === 0) {
-        result += '3 '
+        result += '3'
     }
     if (n % 5 === 0) {
-        result += '5 '
+        result += '5'
     }
     if (n % 7 === 0) {
-        result += '7 '
+        result += '7'
     }
     if (result === '') {
         result = 'n'
     }
-    console.log(result)
+    console.log(result.split('').join(' '))
 </script>
 
 <script id="ch0104/10">
@@ -305,7 +305,7 @@
     if (x < 5) {
         console.log(-x + 2.5)
     } else {
-        if (x <= 10) {
+        if (x < 10) {
             console.log(2 - 1.5 * (x - 3) * (x - 3))
         } else {
             console.log(x / 2 - 1.5)
@@ -326,6 +326,7 @@
     if (b === 'y') {
         result += 5
     }
+    console.log(result)
 </script>
 
 <script id="ch0104/15">
