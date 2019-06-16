@@ -604,7 +604,7 @@
                 break;
         }
     }
-    console.log(n1 + '\n' + n5 + '\n' + n10);
+    console.log(n1 + '\n' + n5 + '\n' + n10 + '\n');
 </script>
 
 <script id="ch0105/12">
@@ -731,7 +731,7 @@
         h = h / 2
     }
     sum -= h1
-    console.log(sum.toFixed(4) + '\n' + h.toFixed(7));
+    console.log(sum.toFixed(4) + '\n' + h.toFixed(7) + '\n');
 </script>
 
 <script id="ch0105/21">
@@ -870,8 +870,8 @@
 </script>
 
 <script id="ch0105/29">
-    // var n = prompt(),
-    var n = '-380',
+    var n = prompt(),
+    // var n = '-380',
         n1 = n,
         i = 0,
         result = '';
@@ -983,8 +983,8 @@
     var n = +prompt(),
         // var n = 5,
         sum = 0,
-        product = 1;
-    i;
+        product = 1,
+        i;
     while (n) {
         i = n
         while (i) {
@@ -1001,8 +1001,8 @@
 <script id="ch0105/35">
     var n = +prompt(),
         sum = 1,
-        product = 1;
-    i;
+        product = 1,
+        i;
     while (n) {
         i = n
         while (i) {
@@ -1021,8 +1021,8 @@
         n = +prompt(),
     // var n = 4,x = 2
         sum = 1,
-        product = 1;
-    i;
+        product = 1,
+        i;
     while (n) {
         product = x ** n
         sum += product
@@ -1060,12 +1060,14 @@
             if (a > 0) {
                 result += ' ' + a * b
             } else {
-                // if(a !== 0){
-                //     result += ' 0'
-                // }
-                result += ' 0'
+                if(a !== 0){
+                    result += ' 0'
+                }
             }
             a--
+        }
+        if(result ===''){
+            result += ' 0'
         }
         result = result.slice(1)
         console.log(result)
@@ -1171,6 +1173,7 @@
         temp = ''
         count++
     }
+    result = result.slice(0,result.length - 1)
     console.log(result)
 </script>
 
