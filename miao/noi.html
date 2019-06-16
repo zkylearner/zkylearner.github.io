@@ -1245,16 +1245,4 @@
         day++
     }
     console.log(sum)
-
-    var span = document.getElementsByTagName('span')
-    var list = []
-    for(let i of span){
-        let t = i.innerText.split(':')
-        if(t[1] === " 未通过"){
-            list.push(t[0])
-            i.innerText = i.innerText.replace("未通过",'通过')
-            i.style.color = '#2ecc40'
-        }
-    }
-    console.log(list)
 </script>
