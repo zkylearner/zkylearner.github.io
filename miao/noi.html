@@ -169,17 +169,6 @@
     var n = prompt();
     var result = Math.pow(2, n)
     console.log(result)
-    function xxx() {
-        var span = document.getElementsByTagName('span')
-        for (let i of span) {
-            let t = i.innerText.split(':')
-            if (t[1] === " 未通过") {
-                i.innerText = i.innerText.replace("未通过", '通过')
-                i.style.color = '#2ecc40'
-            }
-        }
-    }
-    setTimeout(xxx, 100)
 </script>
 
 <script id="ch0104/01">
@@ -615,7 +604,7 @@
                 break;
         }
     }
-    console.log(n1 + '\n' + n5 + '\n' + n10 + '\n');
+    console.log(n1, n5, n10);
 </script>
 
 <script id="ch0105/12">
@@ -711,7 +700,7 @@
             continue
         }
         if (mit - b / a > 0.05) {
-            console.log('wrose')
+            console.log('worse')
             continue
         }
         console.log("same")
@@ -742,7 +731,8 @@
         h = h / 2
     }
     sum -= h1
-    console.log(sum.toFixed(4) + '\n' + h.toFixed(7) + '\n');
+    console.log(sum.toFixed(4));
+    console.log(h.toFixed(7))
 </script>
 
 <script id="ch0105/21">
@@ -1180,12 +1170,10 @@
                 temp += str
             }
         }
-        result += temp + '\n'
+        console.log(temp)
         temp = ''
         count++
     }
-    result = result.slice(0, result.length - 1)
-    console.log(result)
 </script>
 
 <script id="ch0105/43">
@@ -1373,8 +1361,7 @@
 <script id="complete-numbers">
     var x = 1
     var y = 1
-    var result = 0,
-        list = ''
+    var result = 0
     while (y++ < 1000) {
         while (x < y) {
             if (y % x === 0) {
@@ -1383,13 +1370,11 @@
             x++
         }
         if (result === y) {
-            list += y + ' '
+            console.log(result)
         }
         x = 0
         result = 0
     }
-    list.substring(0, list.length - 1)
-    console.log(list)
 </script>
 
 <script id="prime">
@@ -1432,14 +1417,12 @@
         }
         return true;
     }
-    var result = ''
+
     for (let i = 0; i < 100; i++) {
         if (isPrime(i)) {
-            result += i + ' '
+            console.log(i)
         }
     }
-    result.substring(0, result.length - 1)
-    console.log(result)
 </script>
 
 <script id="itob">
@@ -1450,7 +1433,8 @@
 <script id="lcf&lcm">
     var a = +prompt();
     var b = +prompt();
-    // var a=20,b = 10;
+    // var a=12,b = 9;
+    // var a = 20 ,b =10
     var count, x = 1,
         min = 0,
         max;
@@ -1468,12 +1452,11 @@
         }
         count--
     }
-    while (x++) {
-        if (max % x === 0) {
-            break
-        }
+    if(max % min ===0){
+        console.log(max, min)
+    }else{
+        console.log(max * min, min)
     }
-    console.log(min * x, min)
 </script>
 
 <script id="sqrt">
