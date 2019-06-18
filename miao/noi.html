@@ -168,18 +168,18 @@
 <script id="ch0103/20">
     var n = prompt();
     var result = Math.pow(2, n)
-    function xxx(){
+    console.log(result)
+    function xxx() {
         var span = document.getElementsByTagName('span')
-        for(let i of span){
+        for (let i of span) {
             let t = i.innerText.split(':')
-            if(t[1] === " 未通过"){
-                i.innerText = i.innerText.replace("未通过",'通过')
+            if (t[1] === " 未通过") {
+                i.innerText = i.innerText.replace("未通过", '通过')
                 i.style.color = '#2ecc40'
             }
         }
     }
-    setTimeout(xxx,100)
-    console.log(result)
+    setTimeout(xxx, 100)
 </script>
 
 <script id="ch0104/01">
@@ -1256,4 +1256,284 @@
         day++
     }
     console.log(sum)
+</script>
+
+<script id="7">
+    var n = +prompt();
+    // var n = 21
+    var x = false,
+        x1;
+    if (n % 7 === 0) {
+        x = true
+    }
+
+    var a = n + ''
+    for (let i of a) {
+        if (i === '7') {
+            x1 = true
+            break
+        }
+    }
+
+    if (x || x1) {
+        console.log('YES')
+    } else {
+        console.log('NO')
+    }
+</script>
+
+<script id="sort">
+    var a = +prompt();
+    var b = +prompt();
+    var c = +prompt();
+    // var a =  7,b = 5 ,c =1;
+    var result, list;
+    if (a < b) {
+        list = [a, b]
+    } else {
+        list = [b, a]
+    }
+    if (c > list[1]) {
+        list.push(c)
+    } else {
+        if (c < list[0]) {
+            list.unshift(c)
+        } else {
+            list.splice(0, 0, c)
+        }
+    }
+    result = list.join(' ')
+    console.log(result)
+</script>
+
+<script id="narcissistic">
+    var n = +prompt();
+    // var n = 153
+    var a, b, c;
+    a = n % 10
+    b = Math.floor(n / 10 % 10)
+    c = Math.floor(n / 100)
+    if (a ** 3 + b ** 3 + c ** 3 === n) {
+        console.log('YES')
+    } else {
+        console.log('NO')
+    }
+</script>
+
+<script id="narcissistics">
+    var n = 100,
+        result = ''
+    do {
+        var a, b, c;
+        a = n % 10
+        b = Math.floor(n / 10 % 10)
+        c = Math.floor(n / 100)
+        if (a ** 3 + b ** 3 + c ** 3 === n) {
+            result += n + ' '
+        }
+        n++
+    } while (n < 1000)
+    result.substring(0, result.length - 1)
+    console.log(result)
+</script>
+
+<script id="palindrom">
+    var n = prompt();
+    var isPalindrome = function (x) {
+        var x1 = '';
+        for (let i of x) {
+            x1 = i + x1
+        }
+        return x === x1
+    };
+    if (isPalindrome(n)) {
+        console.log('YES')
+    } else {
+        console.log('NO')
+    }
+</script>
+
+<script id="complete-number">
+    var n = +prompt();
+    var x = 1,
+        result = 0;
+    while (x < n) {
+        if (n % x === 0) {
+            result += x
+        }
+        x++
+    }
+    if (result === n) {
+        console.log('YES')
+    } else {
+        console.log('NO')
+    }
+</script>
+
+<script id="complete-numbers">
+    var x = 1
+    var y = 1
+    var result = 0,
+        list = ''
+    while (y++ < 1000) {
+        while (x < y) {
+            if (y % x === 0) {
+                result += x
+            }
+            x++
+        }
+        if (result === y) {
+            list += y + ' '
+        }
+        x = 0
+        result = 0
+    }
+    list.substring(0, list.length - 1)
+    console.log(list)
+</script>
+
+<script id="prime">
+    var n = +prompt();
+    function isPrime(num) {
+        if (num <= 3) {
+            return num > 1;
+        }
+        if (num % 6 != 1 && num % 6 != 5) {
+            return false;
+        }
+        sqrt = Math.sqrt(num);
+        for (let i = 5; i <= sqrt; i += 6) {
+            if (num % i == 0 || num % (i + 2) == 0) {
+                return false;
+            }
+        }
+        return true;
+    }
+    if (isPrime(n)) {
+        console.log('YES')
+    } else {
+        console.log('NO')
+    }
+</script>
+
+<script id="primes">
+    function isPrime(num) {
+        if (num <= 3) {
+            return num > 1;
+        }
+        if (num % 6 != 1 && num % 6 != 5) {
+            return false;
+        }
+        sqrt = Math.sqrt(num);
+        for (let i = 5; i <= sqrt; i += 6) {
+            if (num % i == 0 || num % (i + 2) == 0) {
+                return false;
+            }
+        }
+        return true;
+    }
+    var result = ''
+    for (let i = 0; i < 100; i++) {
+        if (isPrime(i)) {
+            result += i + ' '
+        }
+    }
+    result.substring(0, result.length - 1)
+    console.log(result)
+</script>
+
+<script id="itob">
+    var n = prompt();
+    console.log(n)
+</script>
+
+<script id="lcf&lcm">
+    var a = +prompt();
+    var b = +prompt();
+    // var a=20,b = 10;
+    var count, x = 1,
+        min = 0,
+        max;
+    if (a > b) {
+        count = b
+        max = a
+    } else {
+        count = a
+        max = b
+    }
+    while (count) {
+        if (a % count === 0 && b % count === 0) {
+            min = count
+            break
+        }
+        count--
+    }
+    while (x++) {
+        if (max % x === 0) {
+            break
+        }
+    }
+    console.log(min * x, min)
+</script>
+
+<script id="sqrt">
+    var n = +prompt();
+    // var n = 2;
+    // 只计算至小数点后三位
+    function sqrt(n) {
+        var line = 1,
+            temp
+        while (1) {
+            temp = line * line
+            if (temp === n) {
+                return line
+            }
+            if (temp > n) {
+                break
+            }
+            line++
+        }
+        var count = 1
+        line = (line - 1) * 10
+        n *= 100
+        while (1) {
+            if ((line * line) > n) {
+                if (count < 3) {
+                    count++
+                    line--
+                    line *= 10
+                    n *= 100
+                } else {
+                    break
+                }
+                // console.log(line)
+            }
+            line++
+        }
+        return (line - 1) / 10 ** count
+    }
+    console.log(sqrt(n))
+</script>
+
+<script id="weekday">
+    //2018-1-1 周一
+    var index = 1
+    var y = +prompt()
+    var m = +prompt()
+    // var y =2018,m=6;
+    var sum = 0,count = 0,l = [4,6,9,11],weekday
+    while(count++ < m){
+        if(count === 2){
+            sum += 28
+        }else{
+            if(l.indexOf(count) !== -1){
+                sum += 31
+            }else{
+                sum += 30
+            }
+        }
+    }
+    // 365 = 52 * 7 + 1,多一年（非闰年）星期+1
+    weekday = y - 2018 + sum % 7 
+    console.log(weekday)
 </script>
