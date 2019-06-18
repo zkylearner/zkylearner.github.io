@@ -1170,10 +1170,11 @@
                 temp += str
             }
         }
-        console.log(temp)
+        result += temp + '\n'
         temp = ''
         count++
     }
+    console.log(result)
 </script>
 
 <script id="ch0105/43">
@@ -1378,6 +1379,7 @@
 
 <script id="prime">
     var n = +prompt();
+
     function isPrime(num) {
         if (num <= 3) {
             return num > 1;
@@ -1436,7 +1438,7 @@
     // var a = 20 ,b =10
     var count, x = 1,
         min,
-        max,son,parent;
+        max, son, parent;
     if (a > b) {
         min = b
         max = a
@@ -1454,7 +1456,7 @@
     son = count
     count = max
     while (count) {
-        if (count % a === 0 &&count % b === 0) {
+        if (count % a === 0 && count % b === 0) {
             break
         }
         count = count + son
@@ -1508,19 +1510,22 @@
     var y = +prompt()
     var m = +prompt()
     // var y =2018,m=6;
-    var sum = 0,count = 0,l = [4,6,9,11],weekday
-    while(count++ < m){
-        if(count === 2){
+    var sum = 0,
+        count = 0,
+        l = [4, 6, 9, 11],
+        weekday
+    while (count++ < m) {
+        if (count === 2) {
             sum += 28
-        }else{
-            if(l.indexOf(count) !== -1){
+        } else {
+            if (l.indexOf(count) !== -1) {
                 sum += 31
-            }else{
+            } else {
                 sum += 30
             }
         }
     }
     // 365 = 52 * 7 + 1,多一年（非闰年）星期+1
-    weekday = y - 2018 + sum % 7 
+    weekday = y - 2018 + sum % 7
     console.log(weekday)
 </script>
