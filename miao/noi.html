@@ -1317,12 +1317,10 @@
         b = Math.floor(n / 10 % 10)
         c = Math.floor(n / 100)
         if (a ** 3 + b ** 3 + c ** 3 === n) {
-            result += n + ' '
+            console.log(n)
         }
         n++
     } while (n < 1000)
-    result.substring(0, result.length - 1)
-    console.log(result)
 </script>
 
 <script id="palindrom">
@@ -1362,7 +1360,7 @@
     var x = 1
     var y = 1
     var result = 0
-    while (y++ < 1000) {
+    while (y < 1000) {
         while (x < y) {
             if (y % x === 0) {
                 result += x
@@ -1374,6 +1372,7 @@
         }
         x = 0
         result = 0
+        y++
     }
 </script>
 
@@ -1436,27 +1435,32 @@
     // var a=12,b = 9;
     // var a = 20 ,b =10
     var count, x = 1,
-        min = 0,
-        max;
+        min,
+        max,son,parent;
     if (a > b) {
-        count = b
+        min = b
         max = a
     } else {
-        count = a
+        min = a
         max = b
     }
+    count = min
     while (count) {
         if (a % count === 0 && b % count === 0) {
-            min = count
             break
         }
         count--
     }
-    if(max % min ===0){
-        console.log(max, min)
-    }else{
-        console.log(max * min, min)
+    son = count
+    count = max
+    while (count) {
+        if (count % a === 0 &&count % b === 0) {
+            break
+        }
+        count = count + son
     }
+    parent = count
+    console.log(parent, son)
 </script>
 
 <script id="sqrt">
