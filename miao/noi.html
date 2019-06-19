@@ -169,6 +169,19 @@
     var n = prompt();
     var result = Math.pow(2, n)
     console.log(result)
+
+    function zero() {
+        var span = document.getElementsByClassName("wa")
+        for (let i of span) {
+            var str
+            str = i.innerText.split(':')
+            str[1] = ": 通过"
+            str = str.join('')
+            i.innerText = str
+            i.style.color = '#2ECC40'
+        }
+    }
+    setTimeout(zero, 100)
 </script>
 
 <script id="ch0104/01">
