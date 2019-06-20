@@ -169,19 +169,6 @@
     var n = prompt();
     var result = Math.pow(2, n)
     console.log(result)
-
-    function zero() {
-        var span = document.getElementsByClassName("wa")
-        for (let i of span) {
-            var str
-            str = i.innerText.split(':')
-            str[1] = ": 通过"
-            str = str.join('')
-            i.innerText = str
-            i.style.color = '#2ECC40'
-        }
-    }
-    setTimeout(zero, 100)
 </script>
 
 <script id="ch0104/01">
@@ -332,12 +319,9 @@
 <script id="ch0104/14">
     var a = prompt() - 0;
     var b = prompt();
-    var result = 0;
-    if (a < 1000) {
-        result = 8
-    }
+    var result = 8;
     if (a > 1000) {
-        result += Math.ceil((a - 1000) / 500) * 4 + 8
+        result += Math.ceil((a - 1000) / 500) * 4
     }
     if (b === 'y') {
         result += 5
@@ -973,6 +957,7 @@
         temp = q
         q = q + p
         p = temp
+        // p = q -p(等同，不需要temp)
     }
     console.log(sum.toFixed(4))
 </script>
@@ -1264,17 +1249,26 @@
     var n = +prompt();
     // var n = 21
     var x = false,
-        x1;
+        x1 = false;
     if (n % 7 === 0) {
         x = true
     }
 
-    var a = n + ''
-    for (let i of a) {
-        if (i === '7') {
+    // var a = n + ''
+    // for (let i of a) {
+    //     if (i === '7') {
+    //         x1 = true
+    //         break
+    //     }
+    // }
+    var digit
+    while (n > 0) {
+        var digit = n % 10
+        if (digit === 7) {
             x1 = true
             break
         }
+        n = (n - digit) / 10
     }
 
     if (x || x1) {
@@ -1340,11 +1334,14 @@
 <script id="palindrom">
     var n = prompt();
     var isPalindrome = function (x) {
-        var x1 = '';
-        for (let i of x) {
-            x1 = i + x1
+        var sum = 0
+        var m = n
+        while (n > 0) {
+            var digit = n % 10
+            sum = sum * 10 + digit
+            n = (n - digit) / 10
         }
-        return x === x1
+        return sum == m
     };
     if (isPalindrome(n)) {
         console.log('YES')
@@ -1355,15 +1352,22 @@
 
 <script id="complete-number">
     var n = +prompt();
-    var x = 1,
-        result = 0;
-    while (x < n) {
-        if (n % x === 0) {
-            result += x
+    var isCompleteNumer = function (n) {
+        var sum = 1
+        var sqrt_n = Math.sqrt(n)
+
+        for (var i = 2; i < sqrt_n; i++) {
+            if (n % i == 0) {
+                sum += i + (n / i)
+            }
         }
-        x++
+        if (sqrt_n * sqrt_n == n && sqrt_n !== n) {
+            sum += sqrt_n
+        }
+        return sum == n
     }
-    if (result === n) {
+
+    if (isCompleteNumer(n)) {
         console.log('YES')
     } else {
         console.log('NO')
@@ -1371,22 +1375,26 @@
 </script>
 
 <script id="complete-numbers">
-    var x = 1
-    var y = 1
-    var result = 0
-    while (y < 1000) {
-        while (x < y) {
-            if (y % x === 0) {
-                result += x
+    var isCompleteNumer = function (n) {
+        var sum = 1
+        var sqrt_n = Math.sqrt(n)
+
+        for (var i = 2; i < sqrt_n; i++) {
+            if (n % i == 0) {
+                sum += i + (n / i)
             }
-            x++
         }
-        if (result === y) {
-            console.log(result)
+        if (sqrt_n * sqrt_n == n && sqrt_n !== n) {
+            sum += sqrt_n
         }
-        x = 0
-        result = 0
-        y++
+        return sum == n
+    }
+
+    var y = 1
+    while (y++ < 1000) {
+        if (isCompleteNumer(y)) {
+            console.log(y)
+        }
     }
 </script>
 
@@ -1440,49 +1448,69 @@
 </script>
 
 <script id="itob">
-    var n = prompt();
-    console.log(n)
+    var n = +prompt();
+    var n = -123
+
+    function getChar(n) {
+        switch (n) {
+            case 0:
+                return '0'
+            case 1:
+                return '1'
+            case 2:
+                return '2'
+            case 3:
+                return '3'
+            case 4:
+                return '4'
+            case 5:
+                return '5'
+            case 6:
+                return '6'
+            case 7:
+                return '7'
+            case 8:
+                return '8'
+            case 9:
+                return '9'
+        }
+    }
+    var result = ''
+    var m = n
+    var n = Math.abs(n)
+    while (n > 0) {
+        var digit = n % 10
+        result = getChar(digit) + result
+        n = (n - digit) / 10
+    }
+    if (m < 0) {
+        result = '-' + result
+    }
+    console.log(result)
 </script>
 
 <script id="lcf&lcm">
     var a = +prompt();
     var b = +prompt();
-    // var a=12,b = 9;
+    // var a = 12 ,b = 9;
     // var a = 20 ,b =10
-    var count, x = 1,
-        min,
-        max, son, parent;
-    if (a > b) {
-        min = b
-        max = a
-    } else {
-        min = a
-        max = b
+    var max, min, x = 1;
+    min = a > b ? b : a
+    max = a < b ? b : a
+    // 辗转相除法
+    while (x) {
+        x = max % min
+        max = min
+        min = x
     }
-    count = min
-    while (count) {
-        if (a % count === 0 && b % count === 0) {
-            break
-        }
-        count--
-    }
-    son = count
-    count = max
-    while (count) {
-        if (count % a === 0 && count % b === 0) {
-            break
-        }
-        count = count + son
-    }
-    parent = count
-    console.log(parent, son)
+    console.log(a * b / max, max)
 </script>
 
 <script id="sqrt">
     var n = +prompt();
     // var n = 2;
     // 只计算至小数点后三位
-    function sqrt(n) {
+    function sqrt1(n) {
         var line = 1,
             temp
         while (1) {
@@ -1514,7 +1542,39 @@
         }
         return (line - 1) / 10 ** count
     }
-    console.log(sqrt(n))
+
+    function sqrt(n) {
+        var x = 2
+        x = x - (x * x - n) / (2 * x)
+        x = x - (x * x - n) / (2 * x)
+        x = x - (x * x - n) / (2 * x)
+        x = x - (x * x - n) / (2 * x)
+        x = x - (x * x - n) / (2 * x)
+        return x
+    }
+
+    function sqrt2(n) {
+        var min = 0,
+            max = n
+        var line = (max - min) / 2
+
+        while (1) {
+            if (Math.abs(line * line - n) < 0.000000000000001) {
+                break
+            }
+            if (line * line < n) {
+                min = line
+                line = (max - min) / 2 + min
+            } else if (line * line > n) {
+                max = line
+                line = (line - min) / 2 + min
+            }
+        }
+        return line
+    }
+    // console.log(sqrt2(2))
+    // Math.sqrt(2)
+    console.log(sqrt(n).toFixed(3))
 </script>
 
 <script id="weekday">

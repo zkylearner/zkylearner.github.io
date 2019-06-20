@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>画图</title>
+  <style>
+    canvas {
+      border: 2px solid #f0f;
+      display: block;
+      margin: auto;
+    }
+  </style>
+</head>
+
+<body>
+  <canvas width="400" height="300"></canvas>
+</body>
+<script>
+  var canvas = document.querySelector('canvas')
+  canvas.style.imageRendering = 'pixelated'
+  var ctx = canvas.getContext('2d')
+
+  function dot(x, y, color = 'black') {
+    ctx.fillStyle = color
+    ctx.fillRect(x, y, 1, 1)
+  }
+  /**
+   * YOUR TASK
+画图的题：
+画一条实线
+画一条一个实点一个空点的虚线
+画一条两个实点两个空点的虚线
+画一条三个实点两个空点的虚线
+画一条45度的斜线
+画一条跨越画布左上角和右下角的对角线 
+画一个空心矩形
+画一个实心矩形
+画一个rgb色彩空间的某一面
+画一个空心的圆
+画一个实心的圆
+画一个大小合适的sin(x)的图像
+   */
+</script>
+<script>
+  // dot 允许参数为小数，参数调整 
+  function line(x, y, x1, y1, color = 'black', solid = 0, dotted = 0) {
+    var l1 = x1 - x;
+    var l2 = y1 - y;
+    if (l1 && l2) {
+      var o = Math.min(Math.abs(l1), Math.abs(l2))
+    } else {
+      if (l1) {
+        var o = Math.abs(l1)
+      }
+      if (l2) {
+        var o = Math.abs(l2)
+      }
+    }
+    var addX = (l1) / o;
+    var addY = (l2) / o;
+    var countS = solid
+    var countD = dotted
+    // 不通过起始，终点坐标判断
+    // while (Math.abs(x1) > Math.abs(x) || Math.abs(y1) > Math.abs(y)) {
+    while (o--) {
+      if (solid === 0 && dotted === 0) {
+        dot(x, y, color)
+      } else {
+        if (countS > 0) {
+          dot(x, y, color)
+          countS--
+        } else {
+          countD--
+        }
+        if (countS === 0 && countD === 0) {
+          countS = solid
+          countD = dotted
+        }
+      }
+      if (x !== x1) {
+        x += addX
+      }
+      if (y !== y1) {
+        y += addY
+      }
+    }
+  }
+
+  line(20, 20, 300, 20, "red")
+  line(20, 40, 300, 40, "blue", 1, 1)
+  line(20, 60, 300, 60, "green", 2, 2)
+  line(20, 80, 300, 80, "black", 3, 2)
+  // 45度线
+  line(0, 0, 300, 300)
+  // 对角线
+  // line(0, 0, 400, 300)
+  line(0, 300, 400, 0)
+  // 矩形 上 右 下 左
+  line(310, 10, 390, 10, "red")
+  line(390, 10, 390, 90, "red")
+  line(310, 90, 390, 90, "red")
+  line(310, 10, 310, 90, "red")
+
+  // 矩形 实心
+  for (let i = 0; i < 40; i++) {
+    line(330 + i, 30, 330 + i, 70, "red")
+  }
+
+  // 色彩空间
+  for (let i = 0; i < 125; i++) {
+    // line(260 + i, 130, 260 + i, 255, "red")
+    for (let h = 0; h < 125; h++) {
+      dot(260 + h, 130 + i, `rgb(${i*2},0,${h*2})`)
+    }
+  }
+
+  // sin
+  for (let x = 0; x < 400; x = x + 1) {
+    dot(0 + x, Math.sin(x/10)*10 + 270)
+  }
+
+  // 圆
+  function circle(a, b, r, color = "black") {
+    // var x = -r, y;
+    // for (let i = 0; x < 2 * r; i = i + 0.01){
+    //   x = x + i
+    //   y = Math.sqrt(r * r - x * x) 
+    //   dot(x + a, y + b, color)
+    //   dot(x + a, -y + b, color)
+    // }
+
+    var x = -r,
+      y;
+    for (let i = 0; x < 0; i = i + 0.02) {
+      x = x + i
+      y = Math.sqrt(r * r - x * x)
+      dot(x + a, y + b, color)
+      dot(x + a, -y + b, color)
+    }
+    var x = r,
+      y;
+    for (let i = 0; x > 0; i = i - 0.02) {
+      x = x + i
+      y = Math.sqrt(r * r - x * x)
+      dot(x + a, y + b, color)
+      dot(x + a, -y + b, color)
+    }
+
+  }
+  circle(80, 150, 50, 'black')
+  //实心圆
+  for(let i = 50;i > 0;i = i - 0.1){
+    circle(200, 150, i, 'cyan')
+  }
+
+  // 仅支持45度 和 直线 ，取x, y最大值为长度
+  /* function lineOld(x, y, x1, y1, color = 'black', solid = 0, dotted = 0) {
+    var addX = (x1 - x) ? 1 : 0;
+    var addY = (y1 - y) ? 1 : 0;
+    var countS = solid
+    var countD = dotted
+    while (x1 - x > 0 || y1 - y > 0) {
+      if (solid === 0 && dotted === 0) {
+        dot(x, y, color)
+      } else {
+        if (countS > 0) {
+          dot(x, y, color)
+          countS--
+        } else {
+          countD--
+        }
+        if (countS === 0 && countD === 0) {
+          countS = solid
+          countD = dotted
+        }
+      }
+      x += addX
+      y += addY
+    }
+  } */
+  //左上至右下 
+  lineX(0, 0, 400, 300)
+
+  function lineX(x, y, x1, y1) {
+    var addX = 1
+    var addY = 1
+    var c = 0
+    while (x1 - x > 0 || y1 - y > 0) {
+      dot(x, y)
+      if (c === 2) {
+        x += addX
+      } else {
+        x += addX
+        y += addY
+      }
+      c++
+      if (c > 3) {
+        c = 0
+      }
+    }
+  }
+</script>
+
+</html>
