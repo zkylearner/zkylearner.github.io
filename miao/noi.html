@@ -1553,23 +1553,18 @@
     }
 
     function sqrt2(n) {
-        var min = 0,
-            max = n
-        var line = (max - min) / 2
-
-        while (1) {
-            if (Math.abs(line * line - n) < 0.000000000000001) {
-                break
-            }
-            if (line * line < n) {
-                min = line
-                line = (max - min) / 2 + min
-            } else if (line * line > n) {
-                max = line
-                line = (line - min) / 2 + min
+        var left = 0,
+            right = n
+        var mid = (right + left) / 2
+        while (Math.abs(mid * mid - n) > 0.000000000000001) {
+            mid = (right + left) / 2
+            if (mid * mid < n) {
+                left = mid
+            } else if (mid * mid > n) {
+                right = mid
             }
         }
-        return line
+        return mid
     }
     // console.log(sqrt2(2))
     // Math.sqrt(2)
