@@ -1172,7 +1172,7 @@
         temp = ''
         count++
     }
-    result = result.substring(0,result.length-1)
+    result = result.substring(0, result.length - 1)
     console.log(result)
 </script>
 
@@ -1450,6 +1450,7 @@
 
 <script id="itob">
     var n = +prompt();
+
     function getChar(n) {
         switch (n) {
             case 0:
@@ -1572,27 +1573,48 @@
 </script>
 
 <script id="weekday">
-    //2018-1-1 周一
-    var index = 1
     var y = +prompt()
     var m = +prompt()
-    // var y =2018,m=6;
-    var sum = 0,
-        count = 0,
-        l = [4, 6, 9, 11],
-        weekday
-    while (count++ < m) {
-        if (count === 2) {
-            sum += 28
-        } else {
-            if (l.indexOf(count) !== -1) {
-                sum += 31
-            } else {
-                sum += 30
+
+    function isLeapYear(y) {
+        var result = false;
+        if (y % 4 === 0) {
+            result = true;
+            if (y % 100 === 0 && !(y % 400 === 0)) {
+                result = false
             }
         }
+        if (y % 3200 === 0) {
+            result = false
+        }
+        return result
     }
-    // 365 = 52 * 7 + 1,多一年（非闰年）星期+1
-    weekday = y - 2018 + sum % 7
-    console.log(weekday)
+
+    function getMonthDays(y, m) {
+        var l = [4, 6, 9, 11]
+        if (m == 2) {
+            if (isLeapYear(y)) {
+                return 29
+            } else {
+                return 28
+            }
+        }
+        if (l.indexOf(m) !== -1) {
+            return 30
+        } else {
+            return 31
+        }
+    }
+
+    function weekday(year, month) {
+        var y = year - 1
+        var days = y * 365 + Math.floor(y / 4) - Math.floor(y / 100) + Math.floor(y / 400)
+
+        for (var m = 1; m < month; m++) {
+            days += getMonthDays(year, m)
+        }
+        return (days + 1) % 7
+    }
+
+    console.log(weekday(y, m))
 </script>
