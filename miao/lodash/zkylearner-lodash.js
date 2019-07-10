@@ -16,4 +16,11 @@ var zkylearner = {
     compact: function (ary) {
         return ary.filter(it => it)
     },
+    difference: function(array, ...values){
+        var arr = array.slice()
+        for(let val of values) {
+            arr = arr.filter(n => !val.includes(n))
+        }
+        return arr
+    },
 }
