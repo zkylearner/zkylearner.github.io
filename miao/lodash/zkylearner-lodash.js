@@ -3,9 +3,9 @@ var zkylearner = {
         if(size === 1){return array.slice()}
         var result = []
         var block = []
-        for(let i in array) {
+        for(let i = 0; i < array.length; i++) {
             block.push(array[i])
-            if((+i + 1) % size === 0) {
+            if((i + 1) % size === 0) {
                 result.push(block)
                 block = []
             }
@@ -16,11 +16,26 @@ var zkylearner = {
     compact: function (ary) {
         return ary.filter(it => it)
     },
+    concat: function (ary, ...values) {
+        var arr = array.slice()
+        for(let val of values) {
+            if(Array.isArray(val)){
+                val.map(x=>arr.push(x))
+            } else {
+                arr.push(val)
+            }
+        }
+        return arr
+    },
     difference: function(array, ...values){
         var arr = array.slice()
         for(let val of values) {
             arr = arr.filter(n => !val.includes(n))
         }
         return arr
+    },
+    drop: function(ary, n = 1){
+        // return ary.length > n ? ary.slice(n) : []
+        return ary.slice(n)
     },
 }
