@@ -13,10 +13,10 @@ var zkylearner = {
         if(block.length !== 0) {result.push(block)}
         return result
     },
-    compact: function (ary) {
-        return ary.filter(it => it)
+    compact: function (arr) {
+        return arr.filter(it => it)
     },
-    concat: function (ary, ...values) {
+    concat: function (array, ...values) {
         var arr = array.slice()
         for(let val of values) {
             if(Array.isArray(val)){
@@ -34,8 +34,8 @@ var zkylearner = {
         }
         return arr
     },
-    drop: function(ary, n = 1){
+    drop: function(arr, n = 1){
         // return ary.length > n ? ary.slice(n) : []
-        return ary.slice(n)
+        return arr.slice(n)
     },
 }
