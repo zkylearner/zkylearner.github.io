@@ -81,7 +81,153 @@ var zkylearner = {
         }
         return result
     },
-    //collection
+    head: function(ary) {
+        return ary[0]
+    },
+    indexOf: function(ary, val, fromIndex = 0){
+        for(let i = fromIndex; i < ary.length; i++) {
+            if(ary[i] === val) {return i}
+        }
+        return -1
+    },
+    initial: function(ary) {
+        return ary.slice(0, ary.length - 1)
+    },
+    intersection: function(...ary) {
+        var res = ary[0]
+        for(let i = 1; i < ary.length; i++){
+            var temp = []
+            res.forEach(x => ary[i].includes(x) ? temp.push(x) : null)
+            res = temp
+        }
+        return res
+    },
+    join: function(ary, separator=',') {
+        var last = ary[ary.length - 1], res = ""
+        for(let i of ary) {
+            if(i !== last){
+                res += i + separator
+            } else {
+                res += i
+            }
+        }
+        return res
+    },
+    last: function(ary) {
+        return ary[ary.length - 1]
+    },
+    lastIndexOf: function(ary, val, fromIndex=array.length-1) {
+        for(let i = fromIndex; i > 0; i--) {
+            if(ary[i] === val) {return i}
+        }
+        return -1
+    },
+    nth: function(ary, n = 0) {
+        if(n < 0){
+            return ary[ary.length + n]
+        }else{
+            return ary[n]
+        }
+    },
+    pull: function(ary, ...val) {
+        for(let x of val) {
+            for(let i = 0; i < ary.length; i++){
+                if(ary[i] === x){
+                    ary.splice(i,1)
+                    i--
+                }
+            }
+        }
+        return ary
+    },
+    pullAll: function(ary, val) {
+        for(let x of val) {
+            for(let i = 0; i < ary.length; i++){
+                if(ary[i] === x){
+                    ary.splice(i,1)
+                    i--
+                }
+            }
+        }
+        return ary
+    },
+    remove: function(ary, predicate) {
+        var res = []
+        for(let i = 0; i < ary.length; i++){
+            if(predicate(ary[i])){
+                res.push(ary.splice(i,1)[0])
+                i--
+            }
+        }
+        return res
+    },
+    reverse: function(ary) {
+        var len = ary.length - 1
+        for(let i = 0; i <= len >> 1; i++) {
+            if(i === len - i){continue}
+            var temp = ary[i]
+            ary[i] = ary[len - i]
+            ary[len - i] = temp
+        }
+        return ary
+    },
+    slice: function(array, start=0, end=array.length) {
+        var res = []
+        for(let i = start; i < end; i++){
+            res.push(ary[i])
+        }
+        return res
+    },
+    sortedIndex: function(ary, val){
+        var i = 0, j = ary.length - 1, mid
+        while(i <= j){
+            mid = (i + j)>>1
+            if(ary[mid] === val){return mid}
+            if(val > ary[mid]) {
+                i = mid + 1
+            }else{
+                j = mid -1
+            }
+        }
+        return ary.length
+    },
+    tail: function(ary) {
+        return ary.slice(1)
+    },
+    take: function(ary, n = 1) {
+        return ary.slice(0, n)
+    },
+    takeRight: function(ary, n = 1) {
+        return ary.slice(-n)
+    },
+    union: function(...ary) {
+        var x = new Set, res = []
+        for(let i = 0; i < ary.length; i++) {
+            ary[i].forEach(val=>x.add(val))
+        }
+        x.forEach(i => res.push(i))
+        return res
+    },
+    uniq: function(ary) {
+        var x = new Set, res = []
+        ary.forEach(val=>x.add(val))
+        x.forEach(i => res.push(i))
+        return res
+    },
+    xor: function(...ary){
+        var res = ary[0]
+        for(let i = 1; i < ary.length; i++) {
+            for(let val of ary[i]) {
+                if(res.includes(val)) {
+                    res.splice(res.indexOf(val),1)
+                } else {
+                    res.push(val)
+                }
+            }
+        }
+        return res
+    },
+    //Collection
     // every : (a, p) => !_.some(a, negate(p)),
     every: function (ary, predicate) {
         return ary.reduce((result, item, val, ary) => {
@@ -94,6 +240,7 @@ var zkylearner = {
             return result || predicate(item, val, ary)
         }, false)
     },
+
     // Function
     ary: function (f, n = f.length) {
         return function (...args) {
@@ -151,5 +298,60 @@ var zkylearner = {
                 return cache[arg] = f(arg)
             }
         }
+    },
+
+    // Math
+    add: function(a, b) {
+        return a + b
+    },
+    ceil: function(num, precision=0) {
+        var power = 10 ** precision
+        return Math.ceil(num * power)/power
+    },
+    divide: function(a, b) {
+        return a / b
+    },
+    floor: function(num, precision=0) {
+        var power = 10 ** precision
+        return Math.floor(num * power)/power
+    },
+    max: function(ary){
+        if(ary.length == 0)return undefined
+        return Math.max(...ary)
+    },
+    mean: function(ary){
+        if(ary.length == 0)return undefined
+        return ary.reduce((s,v,i)=>((s * i + v) / (i + 1)))
+    },
+    min: function(ary){
+        if(ary.length == 0)return undefined
+        return Math.min(...ary)
+    },
+    round: function(num, precision=0) {
+        var power = 10 ** precision
+        return Math.round(num * power)/power
+    },
+    multiply: function(a, b) {
+        return a * b
+    },
+    subtract: function(a, b) {
+        return a - b
+    },
+    sum: function(ary) {
+        return ary.reduce((x, y)=> x + y)
+    },
+    // Object
+    forOwn: function(obj, iteratee) {
+        var hasOwn = Object.prototype.hasOwnProperty
+        for(let i in obj){
+            if(hasOwn.call(obj, i)){
+                iteratee(obj.i, i, obj)
+            }
+        }
+    },
+
+    // Util
+    identity: function(...val){
+        return val[0]
     },
 }
