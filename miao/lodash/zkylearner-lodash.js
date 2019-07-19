@@ -38,9 +38,47 @@ var zkylearner = {
         }
         return arr
     },
+    differenceBy: function(ary, ...values){
+        if(!values)return ary
+        var run
+        if(typeof(values[values.length - 1]) === "function"){
+            var iteratee = values.pop()
+            function run(x){return iteratee(x)}
+        }
+        if(typeof(values[values.length - 1]) === "string"){
+            var iteratee = values.pop()
+            function run(x){return x[iteratee]}
+        }
+        if(!run)return ary
+        var temp, res = ary
+        for(let i = 0; i < values.length; i++) {
+            temp = values[i].map(x => run(x))
+            res = res.filter(x => !temp.includes(run(x)))
+        }
+        return res
+    },
+    // - - -
+    differenceWith: function (array, ...values) {
+        if(typeof(values[values.length - 1]) === "function"){
+            var comparator = values.pop()
+        }
+        var arr = array.slice()
+        for (let val of values) {
+            for(let i of val){
+                arr = arr.filter(n => !comparator(n, i))
+            }
+        }
+        return arr
+    },
     drop: function (arr, n = 1) {
         // return ary.length > n ? ary.slice(n) : []
         return arr.slice(n)
+    },
+    dropRight: function (arr, n = 1) {
+        var len = arr.length
+        if(n >= len)return []
+        if(n === 0)return arr
+        return arr.slice(0, len - n)
     },
     fill: function (arr, val, start = 0, end = arr.length) {
         for (let i = start; i < end; i++) {
@@ -275,6 +313,50 @@ var zkylearner = {
             }
         }
     },
+    curry: function(func, arity=func.length) {
+        var temp = [], i = 0
+        function a(...val) {
+            val.forEach(x=>{
+                if (i < arity) {
+                    temp[i] = x
+                    i++
+                } else {
+                    i = temp.indexOf(_)
+                    if (i !== -1) {
+                        temp[i] = x
+                    }
+                }
+            })
+    
+            if (temp.length >= arity && !temp.includes(_)) {
+                return func(...temp)
+            } else {
+                return a
+            }
+        }
+        return a
+    },
+    curry: function(func, arity=func.length) {
+        var temp = [], i = 0, record = []
+        function a(...val) {
+            val.forEach(x=>{
+                if (i < arity) {
+                    if(x !== _){temp[i] = x}
+                    else{record.push(i)}
+                    i++
+                } else {
+                    temp[record.shift()] = x
+                }
+            })
+    
+            if (temp.length >= arity && record.length === 0) {
+                return func(...temp)
+            } else {
+                return a
+            }
+        }
+        return a
+    },
     flip: function (f) {
         return function (...args) {
             return f(...args.reverse())
@@ -462,3 +544,4 @@ var zkylearner = {
         return val[0]
     },
 }
+const _ = "_Placeholder_"
