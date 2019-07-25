@@ -49,7 +49,7 @@ var zkylearner = {
             var iteratee = values.pop()
             function run(x){return x[iteratee]}
         }
-        if(!run)return ary
+        if(!run){run = x => x}
         var temp, res = ary
         for(let i = 0; i < values.length; i++) {
             temp = values[i].map(x => run(x))
@@ -118,6 +118,13 @@ var zkylearner = {
         }
         return result
     },
+    fromPairs: function (pairs) {
+        var obj = {}
+        for(let val of pairs) {
+            obj[val[0]] = val[1]
+        }
+        return obj
+    },
     head: function(ary) {
         return ary[0]
     },
@@ -136,6 +143,42 @@ var zkylearner = {
             var temp = []
             res.forEach(x => ary[i].includes(x) ? temp.push(x) : null)
             res = temp
+        }
+        return res
+    },
+    intersectionBy: function(...ary) {
+        var run
+        if(typeof(ary[ary.length - 1]) === "function"){
+            var iteratee = ary.pop()
+            function run(x){return iteratee(x)}
+        }
+        if(typeof(ary[ary.length - 1]) === "string"){
+            var iteratee = ary.pop()
+            function run(x){return x[iteratee]}
+        }
+        var res = ary[0]
+        var map = {}
+        res.forEach(x => map[x] = run(x))
+        for(let i = 1; i < ary.length; i++){
+            var temp = ary[i].map(x => run(x))
+            res = res.filter(x => temp.includes(map[x]))
+        }
+        return res
+    },
+    intersectionWith: function (...ary) {
+        if(typeof(ary[ary.length - 1]) === "function"){
+            var comparator = ary.pop()
+        }
+        var res = []
+        for(let i = 1; i < ary.length; i++){
+            for(let obj of ary[i]){
+                // res.filter(x => comparator(obj,x))
+                var temp = []
+                for(let i of ary[0]){
+                    if(comparator(obj,i)){temp.push(i)}
+                }
+                res.push(...temp)
+            }
         }
         return res
     },
@@ -187,6 +230,51 @@ var zkylearner = {
             }
         }
         return ary
+    },
+    pullAllBy: function(...ary) {
+        var run = baseBy(ary)
+        var res = ary[0]
+        for(let i = 1; i < ary.length; i++) {
+            var map = {}
+            ary[i].forEach(x => map[run(x)] = x)
+            // res = res.filter(x => !(run(x) in map))
+            for(let j = 0; j < res.length; j++){
+                if((run(res[j]) in map)){
+                    res.splice(j,1)
+                    j--
+                }
+            }
+        }
+        return res
+    },
+    pullAllWith: function(...ary) {
+        if(typeof(ary[ary.length - 1]) === "function"){
+            var comparator = ary.pop()
+        }
+        var res = ary[0]
+        for(let i = 1; i < ary.length; i++) {
+            for(let obj of ary[i]){
+                for(let j = 0; j < res.length; j++){
+                    if(comparator(res[j], obj)){
+                        res.splice(j,1)
+                        j--
+                    }
+                }
+            }
+        }
+        return res
+    },
+    pullAt: function(ary, ...idx){
+        var temp = [], j = 0, count = 0
+        for(let i = 0; i < ary.length; i++){
+            if(i === idx[j] - count){
+                temp.push(ary.splice(i,1)[0])
+                count++
+                i--
+                j++
+            }
+        }
+        return temp
     },
     remove: function(ary, predicate) {
         var res = []
@@ -545,3 +633,15 @@ var zkylearner = {
     },
 }
 const _ = "_Placeholder_"
+var baseBy = function(ary){
+    var run
+    if(typeof(ary[ary.length - 1]) === "function"){
+        var iteratee = ary.pop()
+        function run(x){return iteratee(x)}
+    }
+    if(typeof(ary[ary.length - 1]) === "string"){
+        var iteratee = ary.pop()
+        function run(x){return x[iteratee]}
+    }
+    return run
+}
