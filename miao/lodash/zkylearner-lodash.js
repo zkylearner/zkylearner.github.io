@@ -232,7 +232,7 @@ var zkylearner = {
         return ary
     },
     pullAllBy: function(...ary) {
-        var run = baseBy(ary)
+        var run = zkylearner.baseBy(ary)
         var res = ary[0]
         for(let i = 1; i < ary.length; i++) {
             var map = {}
@@ -266,14 +266,16 @@ var zkylearner = {
     },
     pullAt: function(ary, ...idx){
         var temp = [], j = 0, count = 0
-        for(let i = 0; i < ary.length; i++){
-            if(i === idx[j] - count){
-                temp.push(ary.splice(i,1)[0])
-                count++
-                i--
-                j++
+        idx.forEach(x => {
+            for(let i = 0; i < ary.length; i++){
+                if(i === x[j] - count){
+                    temp.push(ary.splice(i,1)[0])
+                    count++
+                    i--
+                    j++
+                }
             }
-        }
+        })
         return temp
     },
     remove: function(ary, predicate) {
@@ -409,14 +411,14 @@ var zkylearner = {
                     temp[i] = x
                     i++
                 } else {
-                    i = temp.indexOf(_)
+                    i = temp.indexOf(window)
                     if (i !== -1) {
                         temp[i] = x
                     }
                 }
             })
     
-            if (temp.length >= arity && !temp.includes(_)) {
+            if (temp.length >= arity && !temp.includes(window)) {
                 return func(...temp)
             } else {
                 return a
@@ -424,12 +426,13 @@ var zkylearner = {
         }
         return a
     },
+    // window为占位符
     curry: function(func, arity=func.length) {
         var temp = [], i = 0, record = []
         function a(...val) {
             val.forEach(x=>{
                 if (i < arity) {
-                    if(x !== _){temp[i] = x}
+                    if(x !== window){temp[i] = x}
                     else{record.push(i)}
                     i++
                 } else {
@@ -471,7 +474,24 @@ var zkylearner = {
             }
         }
     },
-
+    // Lang
+    isLength: function(value){
+        return typeof value == 'number' && 
+        value > -1 && value % 1 == 0 && value <= MAX_SAFE_INTEGER
+    },
+    isMatch: function(object, source){
+        if(object === source){return true}
+        for(let key in source){
+            if(typeof source[key] == "object" && source[key] != null){
+                if(!zkylearner.isMatch(object[key], source[key])){
+                    return false
+                }
+            }else if(object[key] != source[key]){
+                return false
+            }
+        }
+        return true
+    },
     // Math
     add: function(a, b) {
         return a + b
@@ -631,17 +651,23 @@ var zkylearner = {
     identity: function(...val){
         return val[0]
     },
+    matches: function(src){
+        return function(obj) {
+            return zkylearner.isMatch(obj, src)
+        }
+    },
+    // other
+    baseBy: function(ary){
+        var run
+        if(typeof(ary[ary.length - 1]) === "function"){
+            var iteratee = ary.pop()
+            function run(x){return iteratee(x)}
+        }
+        if(typeof(ary[ary.length - 1]) === "string"){
+            var iteratee = ary.pop()
+            function run(x){return x[iteratee]}
+        }
+        return run
+    },
 }
-const _ = "_Placeholder_"
-var baseBy = function(ary){
-    var run
-    if(typeof(ary[ary.length - 1]) === "function"){
-        var iteratee = ary.pop()
-        function run(x){return iteratee(x)}
-    }
-    if(typeof(ary[ary.length - 1]) === "string"){
-        var iteratee = ary.pop()
-        function run(x){return x[iteratee]}
-    }
-    return run
-}
+// const _ = "_Placeholder_"
