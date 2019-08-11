@@ -93,7 +93,7 @@ var zkylearner = {
         var result = []
         for (var item of ary) {
             if (Array.isArray(item)) {
-                var flattedItem = zkylearner.flattenDeep(item)
+                var flattedItem = this.flattenDeep(item)
                 result.push(...flattedItem)
             } else {
                 result.push(item)
@@ -107,7 +107,7 @@ var zkylearner = {
         for (var item of ary) {
             if (Array.isArray(item)) {
                 if (depth !== 0) {
-                    flattedItem = zkylearner.flattenDepth(item, depth - 1)
+                    flattedItem = this.flattenDepth(item, depth - 1)
                     result.push(...flattedItem)
                 } else {
                     result.push(item)
@@ -232,7 +232,7 @@ var zkylearner = {
         return ary
     },
     pullAllBy: function(...ary) {
-        var run = zkylearner.baseBy(ary)
+        var run = this.baseBy(ary)
         var res = ary[0]
         for(let i = 1; i < ary.length; i++) {
             var map = {}
@@ -403,6 +403,18 @@ var zkylearner = {
             }
         }
     },
+    bind: function(func, thisArg, ...fixedArgs){
+        return function(...args){
+            var acturalArgs = [...fixedArgs]
+            for(let i = 0; i < acturalArgs.length; i++){
+                if(acturalArgs[i] == window){
+                    acturalArgs[i] = args.shift()
+                }
+            }
+            acturalArgs.push(...args)
+            return func.apply(thisArg, acturalArgs)
+        }
+    },
     curry: function(func, arity=func.length) {
         var temp = [], i = 0
         function a(...val) {
@@ -477,13 +489,13 @@ var zkylearner = {
     // Lang
     isLength: function(value){
         return typeof value == 'number' && 
-        value > -1 && value % 1 == 0 && value <= MAX_SAFE_INTEGER
+        value > -1 && value % 1 == 0 && value <= Number.MAX_SAFE_INTEGER
     },
     isMatch: function(object, source){
         if(object === source){return true}
         for(let key in source){
             if(typeof source[key] == "object" && source[key] != null){
-                if(!zkylearner.isMatch(object[key], source[key])){
+                if(!this.isMatch(object[key], source[key])){
                     return false
                 }
             }else if(object[key] != source[key]){
@@ -646,14 +658,193 @@ var zkylearner = {
         }
         return obj
     },
+    get: function(object, path, defaultValue){
+        var path = this.toPath(path)
+        for(let i of path){
+            if(obj === undefined){return defaultValue}
+            obj = obj[i]
+        }
+        return obj
+    },
+    get: function(object, path, defaultValue){
+        if(obj === undefined){return defaultValue}
+        return get(obj[path[0]], path.slice(1))
+    },
+    // Seq
 
+    // String
+    camelCase: function(str){
+        str = str.toLowerCase()
+        return this.words(str).reduce((res, s, i)=>{
+            return res + (i ? this.upperFirst(s) : s)
+        },"")
+    },
+    capitalize: function(str){
+        return this.upperFirst(str.toLowerCase())
+    },
+    endsWith: function(str='', target, position=str.length){
+        var n = target.length - 1
+        for(let i = position - 1; i > 0; i--){
+            if(n < 0){break}
+            if(str[i] != target[n--]){
+                return false
+            }
+        }
+        return true
+    },
+    escape: function(str){
+        const htmlEscapes = {
+            '&': '&amp;',
+            '<': '&lt;',
+            '>': '&gt;',
+            '"': '&quot;',
+            "'": '&#39;'
+        }
+        return /[\&|\<|\>|\"|\']/g.test(str) ? str.replace(/[\&|\<|\>|\"|\']/g, s => htmlEscapes[s]): str
+    },
+    escapeRegExp: function(str){
+        return str.replace(/[\^\$\.\[\]\*\+\?\(\)\{\}]/g, "\\" + "$&")
+    },
+    kebabCase: function(str){
+        str = str.toLowerCase()
+        return this.words(str).reduce((res, s, i)=>{
+            return res + (i ? "-" + s : s)
+        },"")
+    },
+    lowerCase: function(str){
+        return this.words(str).reduce((res, s, i)=>{
+            return res + (i ? " " + s.toLowerCase() : s.toLowerCase())
+        },"")
+    },
+    lowerFirst: function(str = ""){
+        return str[0].toLowerCase() + str.slice(1)
+    },
+    repeatEx: function(str=' ', len = 1){
+        var res = ""
+        var j = 0
+        var strLen = str.length
+        if(len <= 0 || strLen <= 0){return ""}
+        if(strLen === 1){return this.repeat(str, len)}
+        for(let i = 0; i < len; i++){
+            res += str[j++]
+            if(j == strLen){j = 0}
+        }
+        return res
+    },
+    pad: function(str='', len=0, chars=' '){
+        var strLen = str.length
+        if(len <= strLen){return str}
+        var n = len - strLen
+        var l = n >> 1
+        var r = n - l
+        return this.repeatEx(chars, l) + str + this.repeatEx(chars, r)
+    },
+    padEnd: function(str='', len=0, chars=' '){
+        var strLen = str.length
+        if(len <= strLen){return str}
+        var n = chars.length
+        var fillStr = this.repeat(chars, Math.ceil((len - strLen) / n))
+        str = str + fillStr
+        if(str.length > len){str = str.slice(0, len)}
+        return str
+    },
+    padEnd: function(str='', len=0, chars=' '){
+        var strLen = str.length
+        if(len <= strLen){return str}
+        return str + this.repeatEx(chars, len - strLen)
+    },
+    padStart: function(str='', len=0, chars=' '){
+        var strLen = str.length
+        if(len <= strLen){return str}
+        return this.repeatEx(chars, len - strLen) + str
+    },
+    // parseInt: function(str, radix=10){
+    // },
+    repeat: function(str="", n=1){
+        if(n === 0){return ""}
+        var res = ""
+        while(n--){res+=str}
+        return res
+    },
+    replace: function(str='', pattern, replacement){
+        return str.replace(pattern, replacement)
+    },
+    snakeCase: function(str){
+        str = str.toLowerCase()
+        return this.words(str).reduce((res, s, i)=>{
+            return res + (i ? "_" + s : s)
+        },"")
+    },
+    split: function(str='', separator, limit){
+        return str.split(separator).slice(0, limit)
+    },
+    startCase: function(str){
+        str = str.toLowerCase()
+        return this.words(str).reduce((res, s, i)=>{
+            return res + (i ? " " + this.upperFirst(s) : s)
+        },"")
+    },
+    startsWith: function(str='', target, position=0){
+        var n = target.length
+        var count = 0
+        for(let i = position; i < str.length; i++){
+            if(str[i] != target[count++]){
+                return false
+            }
+            if(count >= n){break}
+        }
+        return true
+    },
+    // template: function(str="", options={}){
+    // },
+    toLower: function(str){
+        return str.toLowerCase()
+    },
+    toUpper: function(str){
+        return str.toUpperCase()
+    },
+    trimEx: function(str='', chars=" "){
+        // ^[\_\-]+|[\_\-]+$
+        var temp = ""
+        for(let i of chars){
+            temp += "\\" + i
+        }
+        temp = "[" + temp + "]+"
+        var re = new RegExp("^" + temp + "|" + temp + "$","g")
+        return str.replace(re, "")
+    },
+    upperCase: function(str){
+        return this.words(str).reduce((res, s, i)=>{
+            return res + (i ? " " + s.toUpperCase() : s.toUpperCase())
+        },"")
+    },
+    upperFirst: function(str = ""){
+        return str[0].toUpperCase() + str.slice(1)
+    },
+    words: function(str, pattern){
+        if(pattern)return str.match(pattern) || []
+        var res = str.replace(/[A-Z]+/g," " + '$&')
+        res = res.replace(/[A-Z][a-z]/g," " + '$&')
+        res = res.split(/[\W|\_]+/)
+        if(res[0] == ""){res.shift()}
+        if(res[res.length - 1] == ""){res.pop()}
+        return res || []
+    },
     // Util
     identity: function(...val){
         return val[0]
     },
     matches: function(src){
         return function(obj) {
-            return zkylearner.isMatch(obj, src)
+            return this.isMatch(obj, src)
+        }
+    },
+    toPath: function(str){
+        return str.split(/\.|\[|\]./g)
+    },
+    property: function(path){
+        return function(obj) {
+            return this.get(obj, path)
         }
     },
     // other
