@@ -658,7 +658,7 @@ var zkylearner = {
         }
         return obj
     },
-    get: function(object, path, defaultValue){
+    get: function(obj, path, defaultValue){
         var path = this.toPath(path)
         for(let i of path){
             if(obj === undefined){return defaultValue}
@@ -666,8 +666,10 @@ var zkylearner = {
         }
         return obj
     },
-    get: function(object, path, defaultValue){
+    get: function(obj, path, defaultValue){
+        if(typeof path === "string")path = this.toPath(path)
         if(obj === undefined){return defaultValue}
+        if(obj[path[0]] === undefined){return obj}
         return this.get(obj[path[0]], path.slice(1))
     },
     // Seq
@@ -886,16 +888,18 @@ var zkylearner = {
         return val[0]
     },
     matches: function(src){
+        var that = this
         return function(obj) {
-            return this.isMatch(obj, src)
+            return that.isMatch(obj, src)
         }
     },
     toPath: function(str){
         return str.split(/\.|\[|\]./g)
     },
     property: function(path){
+        var that = this
         return function(obj) {
-            return this.get(obj, path)
+            return that.get(obj, path)
         }
     },
     // other
