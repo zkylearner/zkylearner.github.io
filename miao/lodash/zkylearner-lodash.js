@@ -438,8 +438,8 @@ var zkylearner = {
         }
         return a
     },
-    // window为占位符
     curry: function(func, arity=func.length) {
+        // window为占位符
         var temp = [], i = 0, record = []
         function a(...val) {
             val.forEach(x=>{
@@ -668,7 +668,7 @@ var zkylearner = {
     },
     get: function(object, path, defaultValue){
         if(obj === undefined){return defaultValue}
-        return get(obj[path[0]], path.slice(1))
+        return this.get(obj[path[0]], path.slice(1))
     },
     // Seq
 
