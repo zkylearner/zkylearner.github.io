@@ -706,9 +706,8 @@ var zkylearner = {
         return str.replace(/[\^\$\.\[\]\*\+\?\(\)\{\}]/g, "\\" + "$&")
     },
     kebabCase: function(str){
-        str = str.toLowerCase()
         return this.words(str).reduce((res, s, i)=>{
-            return res + (i ? "-" + s : s)
+            return res + (i ? "-" + s.toLowerCase() : s.toLowerCase())
         },"")
     },
     lowerCase: function(str){
@@ -770,18 +769,16 @@ var zkylearner = {
         return str.replace(pattern, replacement)
     },
     snakeCase: function(str){
-        str = str.toLowerCase()
         return this.words(str).reduce((res, s, i)=>{
-            return res + (i ? "_" + s : s)
+            return res + (i ? "_" + s.toLowerCase() : s.toLowerCase())
         },"")
     },
     split: function(str='', separator, limit){
         return str.split(separator).slice(0, limit)
     },
     startCase: function(str){
-        str = str.toLowerCase()
         return this.words(str).reduce((res, s, i)=>{
-            return res + (i ? " " + this.upperFirst(s) : s)
+            return res + (i ? " " + this.upperFirst(s) : this.upperFirst(s))
         },"")
     },
     startsWith: function(str='', target, position=0){
@@ -803,15 +800,69 @@ var zkylearner = {
     toUpper: function(str){
         return str.toUpperCase()
     },
-    trimEx: function(str='', chars=" "){
+    trimEx: function(str='', chars=" ", flag = "lr"){
         // ^[\_\-]+|[\_\-]+$
         var temp = ""
+        var re
         for(let i of chars){
             temp += "\\" + i
         }
         temp = "[" + temp + "]+"
-        var re = new RegExp("^" + temp + "|" + temp + "$","g")
+
+        if(flag === "lr"){
+            re = new RegExp("^" + temp + "|" + temp + "$","g")
+        }else if(flag === "l"){
+            re = new RegExp("^" + temp,"g")
+        }else if(flag === "r"){
+            re = new RegExp(temp + "$","g")
+        }
         return str.replace(re, "")
+    },
+    trim: function(str="", chars=" "){
+        return this.trimEx(str, chars)
+    },
+    trimEnd: function(str="", chars=" "){
+        return this.trimEx(str, chars, "r")
+    },
+    trimStart: function(str="", chars=" "){
+        return this.trimEx(str, chars, "l")
+    },
+    truncate: function(str="", options={}){
+        var flag = false
+        if(options.length === undefined){options.length = 30}
+        if(options.omission === undefined){options.omission = "..."}
+        if(str.length > options.length){
+            str = str.slice(0, options.length - options.omission.length)
+            flag = true
+        }
+        if(options.separator){
+            var re = new RegExp(options.separator, "g")
+            if(typeof re === "string"){
+                re = new RegExp(re, "g")
+            }
+            if(Object.prototype.toString.call(re) === '[object RegExp]'){
+                var index = null, temp
+                while(1){
+                    temp = re.exec(str)
+                    if(temp){index = temp.index}
+                    else{break}
+                }
+                if(index !== null)str = str.slice(0, index)
+            }
+        }
+        if(flag){str += options.omission}
+        return str
+    },
+    unescape: function(str){
+        const htmlEscapes = {
+            '&amp;':'&',
+            '&lt;':'<',
+            '&gt;':'>',
+            '&quot;':'"',
+            '&#39;':"'",
+        }
+        var re = /\&amp;|\&lt;|\&gt;|\&quot;|\&#39;/g
+        return re.test(str) ? str.replace(re, s => htmlEscapes[s]): str
     },
     upperCase: function(str){
         return this.words(str).reduce((res, s, i)=>{
