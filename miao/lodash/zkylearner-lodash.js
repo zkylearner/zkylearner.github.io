@@ -669,8 +669,8 @@ var zkylearner = {
     get: function(obj, path, defaultValue){
         if(typeof path === "string")path = this.toPath(path)
         if(obj === undefined){return defaultValue}
-        if(obj[path[0]] === undefined){return obj}
-        return this.get(obj[path[0]], path.slice(1))
+        if(path.length == 0){return obj}
+        return this.get(obj[path[0]], path.slice(1), defaultValue)
     },
     // Seq
 
