@@ -491,6 +491,47 @@ var zkylearner = {
         return typeof value == 'number' && 
         value > -1 && value % 1 == 0 && value <= Number.MAX_SAFE_INTEGER
     },
+    isEqual: function(value, other){
+        if(value === other){return true}
+        var type1 = Object.prototype.toString.call(value)
+        var type2 = Object.prototype.toString.call(other)
+        if(type1 !== type2){return false}
+        var subType
+        if(type1 === "[object Number]" || type1 === "[object Boolean]" || type1 === "[object String]"){
+            return value === other
+        }
+        if(type1 === "[object Object]"){
+            var key1 = Object.keys(value)
+            var key2 = Object.keys(other)
+            if(key1.length !== key2.length){return false}
+            for(let key of key1){
+                subType = Object.prototype.toString.call(value[key])
+                if(subType === "[object Object]" || subType === "[object Array]"){
+                    if(!this.isEqual(value[key], other[key])){
+                        return false
+                    }
+                } else if(value[key] !== other[key]){
+                    return false
+                }
+            }
+            return true
+        }
+        if(type1 === "[object Array]"){
+            if(value.length !== other.length){return false}
+            for(let i = 0; i < value.length; i++){
+                subType = Object.prototype.toString.call(value[i])
+                if(subType === "[object Object]" || subType === "[object Array]"){
+                    if(!this.isEqual(value[i], other[i])){
+                        return false
+                    }
+                } else if(value[i] !== other[i]){
+                    return false
+                }
+            }
+            return true
+        }
+        throw new Error("Undetermined data type")
+    },
     isMatch: function(object, source){
         if(object === source){return true}
         for(let key in source){
