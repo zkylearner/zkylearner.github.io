@@ -80,6 +80,40 @@ var zkylearner = {
         if(n === 0)return arr
         return arr.slice(0, len - n)
     },
+    dropRightWhile: function (arr, predicate) {
+        predicate = this.iteratee(predicate)
+        for (var i = arr.length - 1; i >= 0; i--) {
+            if (predicate(arr[i])) {
+                return arr.slice(0, i + 1)
+            }
+        }
+        return arr.slice(0, i + 1)
+    },
+    dropWhile: function (arr, predicate) {
+        predicate = this.iteratee(predicate)
+        for (var i = 0; i < arr.length; i++) {
+            if (!predicate(arr[i])) {
+                return arr.slice(i)
+            }
+        }
+        return arr.slice(i)
+    },
+    findIndex: function(collection, predicate, fromIndex=0){
+        predicate = this.iteratee(predicate)
+        for(let i = fromIndex; i < collection.length; i++){
+            if(predicate(collection[i])){
+                return i
+            }
+        }
+    },
+    findLastIndex: function(collection, predicate, fromIndex=collection.length-1){
+        predicate = this.iteratee(predicate)
+        for(let i = fromIndex; i >= 0; i--){
+            if(predicate(collection[i])){
+                return i
+            }
+        }
+    },
     fill: function (arr, val, start = 0, end = arr.length) {
         for (let i = start; i < end; i++) {
             arr[i] = val
@@ -336,10 +370,49 @@ var zkylearner = {
         x.forEach(i => res.push(i))
         return res
     },
+    unionBy: function(...arys) {
+        predicate = this.iteratee(arys.pop())
+        var map = new Map, res = []
+        for(let ary of arys){
+            ary.forEach(val=>{
+                var key = predicate(val)
+                if(!map.has(key)){
+                    map.set(key, val)
+                }
+            })
+        }
+        map.forEach(val =>res.push(val))
+        return res
+    },
     uniq: function(ary) {
         var x = new Set, res = []
         ary.forEach(val=>x.add(val))
         x.forEach(i => res.push(i))
+        return res
+    },
+    uniqBy: function(ary, iteratee) {
+        predicate = this.iteratee(iteratee)
+        var map = new Map, res = []
+        ary.forEach(val=>{
+            var key = predicate(val)
+            if(!map.has(key)){
+                map.set(key, val)
+            }
+        })
+        map.forEach(val =>res.push(val))
+        return res
+    },
+    unzip: function(arys) {
+        let res = []
+        let temp, i = 0
+        while(i < arys[0].length){
+            temp = []
+            for(let ary of arys){
+                if(ary[i] != undefined)temp.push(ary[i])
+            }
+            res.push(temp)
+            i++
+        }
         return res
     },
     without: function(ary, ...val){
@@ -357,7 +430,28 @@ var zkylearner = {
         }
         return res
     },
+    zip: function(...arys){
+        let res = []
+        let temp, i = 0
+        while(i < arys[0].length){
+            temp = []
+            for(let ary of arys){
+                if(ary[i] != undefined)temp.push(ary[i])
+            }
+            res.push(temp)
+            i++
+        }
+        return res
+    },
     //Collection
+    find: function(collection, predicate, fromIndex=0){
+        predicate = this.iteratee(predicate)
+        for(let i = fromIndex; i < collection.length; i++){
+            if(predicate(collection[i])){
+                return collection[i]
+            }
+        }
+    },
     // every : (a, p) => !_.some(a, negate(p)),
     every: function (ary, predicate) {
         return ary.reduce((result, item, val, ary) => {
@@ -928,14 +1022,42 @@ var zkylearner = {
     identity: function(...val){
         return val[0]
     },
+    iteratee: function(value){
+        if(typeof value === "string"){
+            return this.property(value)
+        }
+        if(Array.isArray(value)){
+            return this.matchesProperty(value)
+        }
+        if(typeof value === "object"){
+            return this.matches(value)
+        }
+        if(Object.prototype.toString.call(value) === "[object Function]"){
+            return value
+        }
+    },
     matches: function(src){
         var that = this
         return function(obj) {
             return that.isMatch(obj, src)
         }
     },
-    toPath: function(str){
-        return str.split(/\.|\[|\]./g)
+    matchesProperty: function(path, srcValue){
+        // 传入的path为数组时，src为空，取数组最后一项
+        if (srcValue === undefined && Array.isArray(path)) {
+            srcValue = path.pop()
+        }
+        var path = this.toPath(path)
+        var that = this
+        return function(obj) {
+            return that.isEqual(that.get(obj, path), srcValue)
+        }
+    },
+    toPath: function(val){
+        if (Array.isArray(val)) {
+            return val.map(it => it.toString())
+        }
+        return val.split(/\.|\[|\]./g)
     },
     property: function(path){
         var that = this
