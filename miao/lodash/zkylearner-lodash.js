@@ -499,6 +499,7 @@ var zkylearner = {
         for(let key in collection){
             predicate(collection[key], key)
         }
+        return collection
     },
     groupBy: function(collection, predicate){
         predicate = this.iteratee(predicate)
@@ -522,7 +523,7 @@ var zkylearner = {
         let res = []
         predicate = this.iteratee(predicate)
         for(let key in collection){
-            res.push(predicate(collection[key]))
+            res.push(predicate(collection[key], key, collection))
         }
         return res
     },
@@ -547,6 +548,7 @@ var zkylearner = {
     },
     reduce: function(collection, predicate, accumulator){
         predicate = this.iteratee(predicate)
+        if(accumulator === undefined){accumulator = collection.shift()}
         for(let key in collection){
             accumulator = predicate(accumulator, collection[key], key)
         }
@@ -578,12 +580,10 @@ var zkylearner = {
         let set = new Set()
         let res = []
         let keys = Object.keys(collection)
-        while(set.size < n){
+        while(keys.length){
             let idx = ~~(Math.random() * keys.length)
-            if(!set.has(idx)){
-                res.push(collection[idx])
-                set.add(idx)
-            }
+            res.push(collection[keys[idx]])
+            keys.splice(idx,1)
         }
         return res
     },
