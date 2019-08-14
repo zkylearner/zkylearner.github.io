@@ -57,7 +57,6 @@ var zkylearner = {
         }
         return res
     },
-    // - - -
     differenceWith: function (array, ...values) {
         if(typeof(values[values.length - 1]) === "function"){
             var comparator = values.pop()
@@ -83,7 +82,7 @@ var zkylearner = {
     dropRightWhile: function (arr, predicate) {
         predicate = this.iteratee(predicate)
         for (var i = arr.length - 1; i >= 0; i--) {
-            if (predicate(arr[i])) {
+            if (!predicate(arr[i])) {
                 return arr.slice(0, i + 1)
             }
         }
@@ -164,7 +163,9 @@ var zkylearner = {
     },
     indexOf: function(ary, val, fromIndex = 0){
         for(let i = fromIndex; i < ary.length; i++) {
-            if(ary[i] === val) {return i}
+            if(isNaN(val)){
+                if(isNaN(ary[i])){return i}
+            }else if(ary[i] === val) {return i}
         }
         return -1
     },
@@ -232,7 +233,9 @@ var zkylearner = {
     },
     lastIndexOf: function(ary, val, fromIndex=ary.length-1) {
         for(let i = fromIndex; i > 0; i--) {
-            if(ary[i] === val) {return i}
+            if(isNaN(val)){
+                if(isNaN(ary[i])){return i}
+            }else if(ary[i] === val) {return i}
         }
         return -1
     },
@@ -444,6 +447,31 @@ var zkylearner = {
         return res
     },
     //Collection
+    countBy: function(collection, predicate){
+        predicate = this.iteratee(predicate)
+        let obj = {}
+        for(let i = 0; i < collection.length; i++){
+            let key = predicate(collection[i])
+            obj[key] = obj[key] === undefined ? 1 : obj[key] + 1
+        }
+        return obj
+    },
+    every: function (ary, predicate) {
+        predicate = this.iteratee(predicate)
+        return ary.reduce((result, item, val, ary) => {
+            return result && predicate(item, val, ary)
+        }, true)
+    },
+    filter: function(collection, predicate){
+        predicate = this.iteratee(predicate)
+        let res = []
+        for(let i = 0; i < collection.length; i++){
+            if(predicate(collection[i])){
+                res.push(collection[i])
+            }
+        }
+        return res
+    },
     find: function(collection, predicate, fromIndex=0){
         predicate = this.iteratee(predicate)
         for(let i = fromIndex; i < collection.length; i++){
@@ -452,14 +480,16 @@ var zkylearner = {
             }
         }
     },
-    // every : (a, p) => !_.some(a, negate(p)),
-    every: function (ary, predicate) {
-        return ary.reduce((result, item, val, ary) => {
-            return result && predicate(item, val, ary)
-        }, true)
+    flatMap: function(collection, predicate){
+        predicate = this.iteratee(predicate)
+        let res = []
+        for(let i = 0; i < collection.length; i++){
+            predicate(collection[i]).forEach(val => res.push(val))
+        }
+        return res
     },
-    // some : (a, p) => !_.every(a, negate(p)),
     some: function (ary, predicate) {
+        predicate = this.iteratee(predicate)
         return ary.reduce((result, item, val, ary) => {
             return result || predicate(item, val, ary)
         }, false)
