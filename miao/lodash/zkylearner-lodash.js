@@ -523,7 +523,7 @@ var zkylearner = {
         let res = []
         predicate = this.iteratee(predicate)
         for(let key in collection){
-            res.push(predicate(collection[key], key, collection))
+            res.push(predicate(collection[key], +key, collection))
         }
         return res
     },
