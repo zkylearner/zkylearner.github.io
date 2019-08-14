@@ -488,13 +488,134 @@ var zkylearner = {
         }
         return res
     },
+    flatMapDeep: function(collection, predicate){
+        return this.flattenDeep(this.flatMap(collection, predicate))
+    },
+    flatMapDepth: function(collection, predicate, depth=1){
+        return this.flattenDepth(this.flatMap(collection, predicate),depth - 1)
+    },
+    forEach: function(collection, predicate){
+        predicate = this.iteratee(predicate)
+        for(let key in collection){
+            predicate(collection[key], key)
+        }
+    },
+    groupBy: function(collection, predicate){
+        predicate = this.iteratee(predicate)
+        let obj = {}
+        for(let i = 0; i < collection.length; i++){
+            let key = predicate(collection[i])
+            obj[key] === undefined ? obj[key] = [collection[i]] : obj[key].push(collection[i])
+        }
+        return obj
+    },
+    keyBy: function(collection, predicate){
+        predicate = this.iteratee(predicate)
+        let obj = {}
+        for(let i = 0; i < collection.length; i++){
+            let key = predicate(collection[i])
+            obj[key] = collection[i]
+        }
+        return obj
+    },
+    map: function(collection, predicate){
+        let res = []
+        predicate = this.iteratee(predicate)
+        for(let key in collection){
+            res.push(predicate(collection[key]))
+        }
+        return res
+    },
     some: function (ary, predicate) {
         predicate = this.iteratee(predicate)
         return ary.reduce((result, item, val, ary) => {
             return result || predicate(item, val, ary)
         }, false)
     },
-
+    partition: function(collection, predicate){
+        let res = [[],[]]
+        predicate = this.iteratee(predicate)
+        for(let key in collection){
+            let temp = predicate(collection[key])
+            if(temp == true){
+                res[0].push(collection[key])
+            }else{
+                res[1].push(collection[key])
+            }
+        }
+        return res
+    },
+    reduce: function(collection, predicate, accumulator){
+        predicate = this.iteratee(predicate)
+        for(let key in collection){
+            accumulator = predicate(accumulator, collection[key], key)
+        }
+        return accumulator
+    },
+    reduceRight: function(collection, predicate, accumulator){
+        predicate = this.iteratee(predicate)
+        let keys = Object.keys(collection)
+        for(let i = keys.length - 1; i >= 0; i--){
+            accumulator = predicate(accumulator, collection[keys[i]], keys[i])
+        }
+        return accumulator
+    },
+    reject: function(collection, predicate){
+        predicate = this.iteratee(predicate)
+        let res = []
+        for(let i = 0; i < collection.length; i++){
+            if(!predicate(collection[i])){
+                res.push(collection[i])
+            }
+        }
+        return res
+    },
+    sample: function(collection){
+        let keys = Object.keys(collection)
+        return collection[~~(Math.random() * keys.length)]
+    },
+    sampleSize: function(collection, n = 1){
+        let set = new Set()
+        let res = []
+        let keys = Object.keys(collection)
+        while(set.size < n){
+            let idx = ~~(Math.random() * keys.length)
+            if(!set.has(idx)){
+                res.push(collection[idx])
+                set.add(idx)
+            }
+        }
+        return res
+    },
+    shuffle: function(collection){
+        let keys = Object.keys(collection)
+        let res = []
+        let set = new Set()
+        while(keys.length){
+            let idx = ~~(Math.random() * keys.length)
+            res.push(collection[keys[idx]])
+            keys.splice(idx,1)
+        }
+        return res
+    },
+    size: function(collection){
+        // if(Array.isArray(collection)){
+        //     return collection.length
+        // }
+        // if(typeof collection == "string"){
+        //     return collection.length
+        // }
+        // if(typeof collection == "object"){
+        //     return Object.keys(collection).length
+        // }
+        return Object.keys(collection).length
+    },
+    // sortBy: function(collection, predicate){
+    //     predicate = this.iteratee(predicate)
+    //     let res = collection.slice()
+    //     res.sort((x, y)=>predicate(x) - predicate(y))
+    //     return res
+    // },
     // Function
     ary: function (f, n = f.length) {
         return function (...args) {
@@ -1053,6 +1174,9 @@ var zkylearner = {
         return val[0]
     },
     iteratee: function(value){
+        if(typeof value === "function"){
+            return value
+        }
         if(typeof value === "string"){
             return this.property(value)
         }
@@ -1061,9 +1185,6 @@ var zkylearner = {
         }
         if(typeof value === "object"){
             return this.matches(value)
-        }
-        if(Object.prototype.toString.call(value) === "[object Function]"){
-            return value
         }
     },
     matches: function(src){
