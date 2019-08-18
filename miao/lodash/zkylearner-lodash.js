@@ -732,9 +732,27 @@ var zkylearner = {
         }
     },
     // Lang
-    isLength: function(value){
-        return typeof value == 'number' && 
-        value > -1 && value % 1 == 0 && value <= Number.MAX_SAFE_INTEGER
+    isArguments: function(val){
+        return Object.prototype.toString.call(val) == "[object Arguments]"
+    },
+    isArray: function(val){
+        return Object.prototype.toString.call(val) == "[object Array]"
+    },
+    isBoolean: function(val){
+        return Object.prototype.toString.call(val) == "[object Boolean]"
+    },
+    isDate: function(val){
+        return Object.prototype.toString.call(val) == "[object Date]"
+    },
+    isElement: function(val){
+        return val instanceof Element
+    },
+    isEmpty: function(val){
+        var n = 0
+        for(let key in val){
+            n++
+        }
+        return n === 0
     },
     isEqual: function(value, other){
         if(value === other){return true}
@@ -777,6 +795,25 @@ var zkylearner = {
         }
         throw new Error("Undetermined data type")
     },
+    isError: function(val){
+        return Object.prototype.toString.call(val) == "[object Error]"
+    },
+    isFinite: function(val){
+        return this.isNumber(val) && val <= Number.MAX_VALUE && val >= Number.MIN_VALUE
+    },
+    isFunction: function(val){
+        return Object.prototype.toString.call(val) == "[object Function]"
+    },
+    isInteger: function(val){
+        return val == ~~val
+    },
+    isLength: function(value){
+        return typeof value == 'number' && 
+        value > -1 && value % 1 == 0 && value <= Number.MAX_SAFE_INTEGER
+    },
+    isMap: function(val){
+        return Object.prototype.toString.call(val) == "[object Map]"
+    },
     isMatch: function(object, source){
         if(object === source){return true}
         for(let key in source){
@@ -789,6 +826,43 @@ var zkylearner = {
             }
         }
         return true
+    },
+    isNaN: function(val){
+        return Number.isNaN(val)
+    },
+    isNative: function(val){
+        return (/\{\s*\[native code\]\s*\}/).test('' + val);
+    },
+    isNil: function(val){
+        return val == null
+    },
+    isNull: function(val){
+        return Object.prototype.toString.call(val) == "[object Null]"
+    },
+    isNumber: function(val){
+        return Object.prototype.toString.call(val) == "[object Number]"
+    },
+    isObject: function(val){
+        return Object.prototype.toString.call(val) == "[object Object]"
+    },
+    isRegExp: function(val){
+        return Object.prototype.toString.call(val) == "[object RegExp]"
+    },
+    isSet: function(val){
+        return Object.prototype.toString.call(val) == "[object Set]"
+    },
+    isString: function(val){
+        return Object.prototype.toString.call(val) == "[object String]"
+    },
+    isUndefined: function(val){
+        return Object.prototype.toString.call(val) == "[object Undefined]"
+    },
+    toArray: function(val){
+        var res = []
+        for(let key in val){
+            res.push(val[key])
+        }
+        return res
     },
     // Math
     add: function(a, b) {
