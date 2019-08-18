@@ -805,7 +805,7 @@ var zkylearner = {
         return Object.prototype.toString.call(val) == "[object Function]"
     },
     isInteger: function(val){
-        return val == ~~val
+        return val === ~~val
     },
     isLength: function(value){
         return typeof value == 'number' && 
@@ -828,7 +828,7 @@ var zkylearner = {
         return true
     },
     isNaN: function(val){
-        return Number.isNaN(val)
+        return isNumber(val) && val !== +val;
     },
     isNative: function(val){
         return (/\{\s*\[native code\]\s*\}/).test('' + val);
@@ -843,7 +843,7 @@ var zkylearner = {
         return Object.prototype.toString.call(val) == "[object Number]"
     },
     isObject: function(val){
-        return Object.prototype.toString.call(val) == "[object Object]"
+        return val instanceof Object
     },
     isRegExp: function(val){
         return Object.prototype.toString.call(val) == "[object RegExp]"
