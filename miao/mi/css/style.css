@@ -364,8 +364,8 @@ ol {
 
 .slider .labelList label {
     display: inline-block;
-    width: 6px;
-    height: 6px;
+    width: 10px;
+    height: 10px;
     /* background-color: rgb(135,135,135); */
     border: 2px solid rgb(142, 142, 142);
     border-radius: 6px;
